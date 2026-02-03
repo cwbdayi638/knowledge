@@ -28,3 +28,20 @@ GNSS 衛星訊號穿過地球大氣層時，會受到電離層與中性大氣（
 *參考文獻建議：*
 - *Bevis et al. (1992): GPS Meteorology: Remote Sensing of Atmospheric Water Vapor Using the Global Positioning System.*
 - *Guerova et al. (2016): Review of the GNSS meteorology: from technical aspects to applications.*
+
+## 6. 研究需要的資料類型：RINEX Raw Data
+要進行 GNSS 氣象學研究，最核心的資料是 **RINEX (Receiver Independent Exchange Format)** 原始觀測檔。
+- **內容:** 包含偽距 (Pseudorange)、載波相位 (Carrier Phase) 與 訊噪比 (S/N)。
+- **版本:** 目前主流為 RINEX 3.x 或 2.x。
+- **獲取方式:** 
+  - 台灣: CWA (中央氣象署) 或 內政部地政司的基準站資料。
+  - 全球: IGS (International GNSS Service) 公開數據庫。
+
+## 7. 計算邏輯示範 (Python)
+以下是一個簡化的 PWV 計算流程演示：
+```python
+# 核心步驟：從 ZTD 提取 PWV
+ZWD = ZTD - ZHD  # 總延遲減去乾延遲
+PWV = PI * ZWD    # 濕延遲乘以轉換係數
+```
+*(完整演示腳本請見工作區範例)*
