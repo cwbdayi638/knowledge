@@ -28,6 +28,7 @@
     - [2001: 強震後的即時 PGA 與 PGV 繪圖 (Near Real-Time Mapping)](papersummaries/ntu_seismo_lab_papers/Review_009_2001_Wu_et_al_BSSA.md)
     - [2002: 虛擬子網 (VSN) 的地震預警策略 (Virtual Subnetwork)](papersummaries/ntu_seismo_lab_papers/Review_010_2002_Wu_Teng_BSSA_EWS.md)
     - [2002: 利用快速通報系統進行即時災損評估 (Damage Assessment)](papersummaries/ntu_seismo_lab_papers/Review_011_2002_Wu_et_al_TAO_EWS.md)
+    - [2014: 應用 GPS 推估遲延量於數值氣象模擬 (GPS & Weather Simulation)](papersummaries/ntu_seismo_lab_papers/Review_2014_Li_GPS_Weather_Simulation.md)
   - **其他近期研究**
     - [2025: 地震初始與規模相關性深度分析 (Rodda & Tal)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude_Deep_Dive.md)
     - [2025: 花蓮地震 EEW 系統表現 (Song et al.)](papersummaries/ntu_seismo_lab_papers/2025_Song_Hualien_EEW.md)
