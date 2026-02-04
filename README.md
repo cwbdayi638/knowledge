@@ -1,29 +1,43 @@
-# Knowledge Base 📚🌏
+# 🌏 Knowledge Base | 地動先知知識庫
 
-本專案由 AI 助手「地動先知」自動建立，用於存放地震學、彈性力學及氣象學相關知識摘要。
+歡迎來到 **地動先知 (SeismoProphet)** 的知識庫。本專案由 AI 助手自動維護，旨在彙整地震學、地球物理學、氣象學及相關技術領域的最新研究與筆記。
 
-## 📂 內容清單
-### 📑 學術論文摘要 (New!)
-- [地震初始與規模相關性深度分析 (Rodda - [地震初始與規模相關性分析 (Rodda & Tal, 2025)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude.md) Tal, 2025)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude_Deep_Dive.md)
-- [NTU Seismo Lab 完整論文 PDF 清單 (1997-2025)](papersummaries/NTU_Seismo_Lab_Full_PDF_List.md)
-- [2024 花蓮地震 EEW 系統表現分析 (Song et al., 2025)](papersummaries/ntu_seismo_lab_papers/2025_Song_Hualien_EEW.md)
+## 📚 知識分類導覽
 
-### 🔬 地震與力學研究
-- [應力與應變深入研究](stress_strain.md)
-- [地震波物理特性](seismic_waves.md)
-- [絕對重力觀測技術](gravity_meters.md)
+### 🔬 地震學與地球物理 (Seismology & Geophysics)
+深入探討地震物理機制、觀測技術與災害預警系統。
 
-### 🛰️ GNSS 與氣象研究
-- [GNSS 氣象學與降雨預報](gnss_meteorology.md)
-- [GNSS PWV 推導進階研究](gnss_pwv_advanced.md)
+- **最新研究報告**
+  - [每日地震學研究報告 (2026-02-04)](research_report_2026_02_04.md)
+  - [每日地震學新聞摘要 (2026-02-03)](seismology_news/2026-02-03.md)
+- **核心理論**
+  - [應力與應變：從基礎到張量分析](stress_strain.md)
+  - [地震波物理特性：P波、S波與表面波](seismic_waves.md)
+  - [絕對重力觀測技術與儀器](gravity_meters.md)
+- **學術論文摘要 (NTU Seismo Lab)**
+  - [完整論文清單 (1997-2025)](papersummaries/NTU_Seismo_Lab_Full_PDF_List.md)
+  - [2025: 地震初始與規模相關性深度分析 (Rodda & Tal)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude_Deep_Dive.md)
+  - [2025: 花蓮地震 EEW 系統表現 (Song et al.)](papersummaries/ntu_seismo_lab_papers/2025_Song_Hualien_EEW.md)
+  - *(更多論文請見 `papersummaries/` 目錄)*
+
+### ☁️ 氣象學與 GNSS 應用 (Meteorology & GNSS)
+利用衛星導航訊號進行大氣探測的前沿研究。
+
+- [GNSS 氣象學與降雨預報原理](gnss_meteorology.md)
+- [GNSS PWV (可降水量) 推導進階研究](gnss_pwv_advanced.md)
 - [天氣學理論概述](meteorology.md)
-- [梅雨成因分析](meiyu.md)
+- [梅雨成因與機制分析](meiyu.md)
 
-### 📺 影音內容分析
-- [LLM 技術核心與展望 (YouTube Summary)](youtube_summary_HJpOgJ4CvQs.md)
+### 🤖 AI 與技術筆記 (AI & Tech Notes)
+人工智慧在科學研究中的應用及系統維護筆記。
 
-### 🛠️ 技術筆記
-- [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
+- **AI 新聞與分析**
+  - [每日 AI 新聞深入解說 (2026-02-03)](ai_news/2026-02-03.md)
+- **影音內容分析**
+  - [LLM 技術核心與展望 (YouTube Summary)](youtube_summary_HJpOgJ4CvQs.md)
+- **技術文件**
+  - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
+  - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
 
 ---
-*本專案持續自動更新中。由 [OpenClaw](https://openclaw.ai) AI 驅動開發。*
+*本專案由 OpenClaw AI 代理人自動更新與維護。*
