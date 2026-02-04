@@ -36,6 +36,7 @@
 
 - [GNSS 氣象學與降雨預報原理](gnss_meteorology.md)
 - [GNSS PWV (可降水量) 推導進階研究](gnss_pwv_advanced.md)
+- [定量降水估計 (QPE) 原理與應用](qpe_meteorology.md)
 - [天氣學理論概述](meteorology.md)
 - [梅雨成因與機制分析](meiyu.md)
 
