@@ -16,9 +16,20 @@
   - [絕對重力觀測技術與儀器](gravity_meters.md)
 - **學術論文摘要 (NTU Seismo Lab)**
   - [完整論文清單 (1997-2025)](papersummaries/NTU_Seismo_Lab_Full_PDF_List.md)
-  - [2025: 地震初始與規模相關性深度分析 (Rodda & Tal)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude_Deep_Dive.md)
-  - [2025: 花蓮地震 EEW 系統表現 (Song et al.)](papersummaries/ntu_seismo_lab_papers/2025_Song_Hualien_EEW.md)
-  - *(更多論文請見 `papersummaries/` 目錄)*
+  - **經典論文深度解析 (Deep Reviews)**
+    - [1997: 震後一分鐘的關鍵數據 (One Minute After)](papersummaries/ntu_seismo_lab_papers/Review_001_1997_Teng_One_Minute_After.md)
+    - [1997: 台灣 RTD 系統的崛起 (RTD System)](papersummaries/ntu_seismo_lab_papers/Review_002_1997_Wu_RTD_System.md)
+    - [1998: 地震預警中的規模快速判定 (Quick Magnitude)](papersummaries/ntu_seismo_lab_papers/Review_003_1998_Wu_Quick_Magnitude.md)
+    - [1999: 花蓮預警系統的實戰驗證 (Integrated EEW)](papersummaries/ntu_seismo_lab_papers/Review_004_1999_Wu_Integrated_EEW_Hualien.md)
+    - [2000: 集集大地震的精確重定位 (Chi-Chi Relocation)](papersummaries/ntu_seismo_lab_papers/Review_005_2000_Chang_ChiChi_Relocation.md)
+    - [2000: RTD 系統在集集地震中的表現 (RTD Performance)](papersummaries/ntu_seismo_lab_papers/Review_006_2000_Wu_et_al_SRL_EWS.md)
+    - [2001: 集集地震的地表位移場 (Ground Displacements)](papersummaries/ntu_seismo_lab_papers/Review_007_2001_Shin_et_al_GRL.md)
+    - [2001: 強震後的即時 PGA 與 PGV 繪圖 (Near Real-Time Mapping)](papersummaries/ntu_seismo_lab_papers/Review_009_2001_Wu_et_al_BSSA.md)
+    - [2002: 虛擬子網 (VSN) 的地震預警策略 (Virtual Subnetwork)](papersummaries/ntu_seismo_lab_papers/Review_010_2002_Wu_Teng_BSSA_EWS.md)
+    - [2002: 利用快速通報系統進行即時災損評估 (Damage Assessment)](papersummaries/ntu_seismo_lab_papers/Review_011_2002_Wu_et_al_TAO_EWS.md)
+  - **其他近期研究**
+    - [2025: 地震初始與規模相關性深度分析 (Rodda & Tal)](papersummaries/ntu_seismo_lab_papers/2025_Rodda_Onset_Magnitude_Deep_Dive.md)
+    - [2025: 花蓮地震 EEW 系統表現 (Song et al.)](papersummaries/ntu_seismo_lab_papers/2025_Song_Hualien_EEW.md)
 
 ### ☁️ 氣象學與 GNSS 應用 (Meteorology & GNSS)
 利用衛星導航訊號進行大氣探測的前沿研究。
