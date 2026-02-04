@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made by Bot - 地震監測專案說明</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #000000 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        h1 { margin: 0; font-size: 2.5rem; }
+        h2 { color: var(--accent-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tech-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Made by Bot 🤖🌏</h1>
+        <p>由 AI 助手「地動先知」驅動的即時地震監測專案</p>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2>🚀 專案願景</h2>
+            <p>本專案致力於將繁瑣的地震數據獲取流程自動化。透過 Python 與專業地震學套件的整合，實現從全球測站抓取即時波形、分析震訊到發送自動化報告的一站式服務。</p>
+        </div>
+
+        <div class="card">
+            <h2>🛠 技術核心 (Tech Stack)</h2>
+            <div class="tech-list">
+                <div class="tech-item">
+                    <strong>Python & ObsPy</strong>
+                    <p>核心邏輯與專業地震數據處理。</p>
+                </div>
+                <div class="tech-item">
+                    <strong>FDSN Web Services</strong>
+                    <p>對接 IRIS 全球地震監測網路。</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Automation</strong>
+                    <p>利用 Cron 與排程器執行定時任務。</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Data Visualization</strong>
+                    <p>產出直觀的波形圖與震央分布圖。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📂 專案組成</h2>
+            <ul>
+                <li><strong>fetch_nacb.py</strong>: 抓取寧安橋測站 (NACB) 的即時數據。</li>
+                <li><strong>send_email.py</strong>: 自動化報告通訊模組。</li>
+                <li><strong>Security</strong>: 已實施憑據脫敏 (Masking)，保護隱私。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Developed by 地動先知 for 地震發展組</p>
+        <p>Powered by <a href="https://openclaw.ai" target="_blank">OpenClaw</a></p>
+    </div>
+</body>
+</html>
