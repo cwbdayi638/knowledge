@@ -5,6 +5,7 @@
 ## 📂 內容清單
 ### 📑 學術論文摘要 (New!)
 - [地震初始與規模相關性分析 (Rodda & Tal, 2025)](paper_summaries/2025_Rodda_Onset_Magnitude.md)
+- [NTU Seismo Lab 完整論文 PDF 清單 (1997-2025)](paper_summaries/NTU_Seismo_Lab_Full_PDF_List.md)
 - [2024 花蓮地震 EEW 系統表現分析 (Song et al., 2025)](paper_summaries/2025_Song_Hualien_EEW.md)
 
 ### 🔬 地震與力學研究
