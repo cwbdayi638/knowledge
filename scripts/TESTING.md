@@ -25,7 +25,7 @@ python3 test_fetch_seismic_waveforms.py
 
 ### Test Coverage
 
-The test suite includes 17 comprehensive tests covering:
+The test suite includes 18 comprehensive tests covering:
 
 #### 1. Waveform Data Validation (4 tests)
 - `test_validate_none_data`: Validates handling of None input
@@ -42,11 +42,12 @@ The test suite includes 17 comprehensive tests covering:
 - `test_fetch_waveforms_success`: Tests successful data retrieval
 - `test_fetch_waveforms_failure`: Tests error handling during fetch
 
-#### 4. Plotting Functionality (6 tests)
+#### 4. Plotting Functionality (7 tests)
 - `test_plot_waveforms_single_trace`: Tests single trace plotting
 - `test_plot_waveforms_multiple_traces`: Tests multi-trace plotting
 - `test_plot_waveforms_none_data`: Tests None data handling
 - `test_plot_waveforms_empty_stream`: Tests empty stream handling
+- `test_plot_waveforms_station_label`: Tests station label selection in plot titles
 - `test_generate_demo_plot`: Tests example data generation
 - `test_generate_demo_plot_uses_example_data`: Tests example data usage when available
 

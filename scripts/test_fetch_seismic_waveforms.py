@@ -210,7 +210,27 @@ class TestPlotting(unittest.TestCase):
         
         self.assertTrue(result)
         self.assertTrue(os.path.exists(filename))
-    
+
+    def test_plot_waveforms_station_label(self):
+        """Test station label selection in plot title"""
+        from obspy import Stream, Trace
+        import numpy as np
+
+        tr = Trace(data=np.random.randn(6000))
+        tr.stats.station = 'TEST'
+        tr.stats.channel = 'BHZ'
+        st = Stream([tr])
+
+        filename = os.path.join(self.test_output_dir, 'test_station_label.png')
+        fig, ax = plt.subplots(1, 1, figsize=(12, 3))
+        with patch('fetch_seismic_waveforms.plt.subplots', return_value=(fig, ax)), \
+             patch('fetch_seismic_waveforms.plt.close'):
+            result = fws.plot_waveforms(st, filename)
+
+        self.assertTrue(result)
+        self.assertIn('Station TEST', fig._suptitle.get_text())
+        plt.close(fig)
+
     def test_plot_waveforms_none_data(self):
         """Test plotting with None data"""
         filename = os.path.join(self.test_output_dir, 'test_none.png')

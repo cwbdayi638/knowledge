@@ -210,13 +210,18 @@ def generate_demo_plot(filename):
     print("📊 Generating example plot (real data unavailable)...")
     
     try:
-        st = read()
+        try:
+            st = read()
+        except Exception as read_error:
+            raise ValueError(
+                f"ObsPy example data unavailable; falling back to synthetic data: {read_error}"
+            ) from read_error
         if st is not None and len(st) > 0:
             return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
 
-        raise ValueError("ObsPy example data returned an empty stream")
+        raise ValueError("ObsPy example data unavailable or returned empty stream; falling back to synthetic data")
     except Exception as e:
-        print(f"   ⚠️ Example data unavailable, generating synthetic demo plot: {e}")
+        print(f"   ⚠️ {e}")
 
         import numpy as np
         
