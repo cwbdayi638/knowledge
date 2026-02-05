@@ -184,7 +184,7 @@ def plot_waveforms(st, filename, title_suffix=""):
         
         # Add title
         station_label = STATION
-        if st and len(st) > 0 and getattr(st[0].stats, 'station', None):
+        if getattr(st[0].stats, 'station', None):
             station_label = st[0].stats.station
 
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
@@ -210,18 +210,13 @@ def generate_demo_plot(filename):
     print("📊 Generating example plot (real data unavailable)...")
     
     try:
-        try:
-            st = read()
-        except Exception as read_error:
-            raise ValueError(
-                f"ObsPy example data unavailable: {read_error}"
-            ) from read_error
+        st = read()
         if st is not None and len(st) > 0:
             return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
 
         raise ValueError("ObsPy example data unavailable or returned empty stream")
     except Exception as e:
-        print(f"   ⚠️ {e}")
+        print(f"   ⚠️ ObsPy example data unavailable: {e}")
 
         import numpy as np
         
