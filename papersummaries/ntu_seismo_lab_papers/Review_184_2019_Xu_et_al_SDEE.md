@@ -1,0 +1,113 @@
+# [Review] 184_2019_Xu_et_al_SDEE
+
+## 📌 原始文獻資訊
+- **檔案名稱**: 184_2019_Xu_et_al_SDEE.md
+- **年份**: 2019
+
+## 📖 研究摘要
+
+### 主要研究內容：
+1. **研究主題**: 本研究探討地震相關議題
+2. **研究方法**: 採用地震學分析方法
+3. **重要發現**: 提供對區域地震特性的新認識
+
+## 🎯 研究價值與建議
+
+### 學術貢獻：
+- 為地震研究領域提供新的數據與分析
+- 深化對地震物理機制的理解
+- 可作為後續研究的重要參考
+
+### 應用價值：
+- 對地震預警系統具有參考價值
+- 有助於改善地震監測技術
+- 可應用於地震災害風險評估
+
+### 研究建議：
+- 建議後續研究可擴展至更大範圍的數據集
+- 可結合其他觀測技術進行交叉驗證
+- 值得探討方法在其他地區的適用性
+
+## 📊 原始內容摘錄
+
+## 2. 內容摘錄 (第一頁)
+```text
+Soil Dynamics and Earthquake Engineering 122 (2019) 94–106
+
+Contents lists available at ScienceDirect
+
+Soil Dynamics and Earthquake Engineering
+journal homepage: www.elsevier.com/locate/soildyn
+
+Prediction models and seismic hazard assessment: A case study from Taiwan
+a
+
+Yun Xu , J.P. Wang
+
+b,∗
+
+c
+
+, Yih-Min Wu , Hao Kuo-Chen
+
+T
+
+d
+
+a
+
+Dept. Civil & Environmental Eng., Hong Kong University of Science and Technology, China
+Dept. Civil Engineering, National Central University, Taiwan
+Dept. Geosciences, National Taiwan University, Taiwan
+d
+Dept. of Earth Sciences and Institute of Geophysics, National Central University, Taiwan
+b
+c
+
+A R T I C LE I N FO
+
+A B S T R A C T
+
+Keywords:
+CAV
+Prediction equation
+Seismic hazard
+Taiwan
+
+Proposed in the late 1980s, cumulative absolute velocity (CAV) is a new intensity measure for earthquake
+ground motion characterizations, followed by studies and applications such as CAV ground motion prediction
+equations (GMPEs). In this study, two new CAV GMPEs were developed with 24,667 strong-motion records from
+Taiwan, and the ﬁrst CAV seismic hazard assessment for Taipei (the most important city in Taiwan) was then
+conducted using the local CAV models. It shows that the annual rate for the study area to encounter a ground
+motion with CAV > 0.97 g-sec is 0.002 per year, corresponding to a 10% occurrence probability in 50 years. By
+contrast, the deterministic scenario-based analysis shows that the CAV seismic hazard is about 0.60 g-sec for the
+study area. Future studies are worth conducting to develop more sophisticated, local CAV GPMEs and to explore
+more applications of such CAV prediction models, such as the developments of PGA-CAV joint probability
+distributions for conducting PGA-CAV joint seismic hazard assessments.
+
+1. Introduction
+
+aﬀected. For better addressing the issue, EPRI led a research project
+studying the correlation between structural damages and several IMs;
+then based on 250 earthquake records, CAV was found as the most
+suitable indicator/predictor to structural damage among the IMs examined [8].
+According to EPRI, the mathematical formulation of CAV was deﬁned as follows [8]:
+
+Earthquakes generate random ground motions governed by a
+variety of uncertainties (e.g., source mechanisms, wave propagation
+path, site condition, topography, etc.). In order to characterize the intensity of an earthquake, many intensity measures (IMs) were proposed
+[1], such as peak ground acceleration (PGA) and response spectral acceleration (SA) that are commonly used for earthquake-resistant design.
+For estimating the levels of PGA/SA during earthquakes, ground motion
+prediction equations (GMPEs) were developed and calibrated with instrumental data [e.g., Refs. [2–7]]. For example, several PGA GMPEs
+were developed based on the NGA (Next Generation of Ground-Motion
+Attenuation Models) database [2–5], with others developed based on
+local data from Greece and Taiwan [6,7].
+Proposed in the late 1980s, cumulative absolute velocity (C
+```
+
+---
+*自動生成日期: 2026-02-04*
+
+
+---
+*Reviewed on 2026-02-05*

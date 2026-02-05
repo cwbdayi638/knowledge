@@ -1,0 +1,106 @@
+# [Review] 188_2020_Ku_et_al_JAES
+
+## 📌 原始文獻資訊
+- **檔案名稱**: 188_2020_Ku_et_al_JAES.md
+- **年份**: 2020
+
+## 📖 研究摘要
+
+### 主要研究內容：
+1. **研究主題**: 本研究探討地震相關議題
+2. **研究方法**: 採用地震學分析方法
+3. **重要發現**: 提供對區域地震特性的新認識
+
+## 🎯 研究價值與建議
+
+### 學術貢獻：
+- 為地震研究領域提供新的數據與分析
+- 深化對地震物理機制的理解
+- 可作為後續研究的重要參考
+
+### 應用價值：
+- 對地震預警系統具有參考價值
+- 有助於改善地震監測技術
+- 可應用於地震災害風險評估
+
+### 研究建議：
+- 建議後續研究可擴展至更大範圍的數據集
+- 可結合其他觀測技術進行交叉驗證
+- 值得探討方法在其他地區的適用性
+
+## 📊 原始內容摘錄
+
+## 2. 內容摘錄 (第一頁)
+```text
+Journal of Asian Earth Sciences 195 (2020) 104378
+
+Contents lists available at ScienceDirect
+
+Journal of Asian Earth Sciences
+journal homepage: www.elsevier.com/locate/jseaes
+
+Seismic velocity structure beneath the Western Solomon Islands from the
+joint inversion of receiver functions and surface-wave dispersion curves
+Chin-Shang Kua,b, Yu-Ting Kuob, Bor-Shouh Huanga,b, Yue-Gau Chena,b,c,d, Yih-Min Wua,b,e,
+
+T
+
+⁎
+
+a
+
+Department of Geosciences, National Taiwan University, Taipei 10617, Taiwan
+Institute of Earth Sciences, Academia Sinica, Taipei 11529, Taiwan
+c
+Research Center for Environmental Changes, Academia Sinica, Taipei 11529, Taiwan
+d
+Center for Sustainability Science, Academia Sinica, Taipei 11529, Taiwan
+e
+NTU Research Center for Future Earth, National Taiwan University, Taipei 10617, Taiwan
+b
+
+A R T I C LE I N FO
+
+A B S T R A C T
+
+Keywords:
+Solomon Islands
+Receiver functions
+Surface-wave dispersion curve
+Joint inversion
+
+An MW 8.1 earthquake occurred in 2007 and induced a tsunami that hit the Western Solomon Islands and caused
+casualties. This motivated us to deploy a seismic network around the rupture zone of the 2007 event. To investigate the seismic velocity structure of the Western Solomon Islands, we select seismograms of teleseismic
+events recorded by our seismic network. Joint inversion of P-wave receiver functions and surface-wave group
+velocity dispersion curves is used to estimate station-based 1-D velocity models. The resulting velocity models
+show a highly variable crustal structure across the region. The Moho depths beneath the stations range from 25
+to 40 km. A low-velocity zone (LVZ) is observed at most seismic stations in this work. Our study provides
+preliminary station-based seismic velocity models for the study region, and more stations will be deployed in the
+continuing project. An integrated 3-D velocity model will be determined in the future.
+
+1. Introduction
+The Solomon Islands is located in the southwestern Paciﬁc Ocean,
+which is a complex boundary between the Paciﬁc, Australian, and
+Woodlark plates (Fig. 1). Two large earthquakes occurred in 2007 and
+2010, and both shock the Western Solomon Islands. The MW 8.1 event
+of April 1, 2007, was the largest instrumentally recorded earthquake in
+the Solomon Islands (Fritz and Kalligeris, 2008; Taylor et al., 2008;
+Chen et al., 2009; Miyagi et al., 2009). The rupture zone of the 2007
+event was approximately 245 km in length and extended from the San
+Cristobal Trench and extends to the New Britain Trench (Taylor et al.,
+2008). After three years, an MW 7.1 earthquake occurred and triggered
+the tsunami that hit the local area (Newman et al., 2011; Kuo et al.,
+2016). Both events caused injuries and deaths. Our group then planned
+to deploy instruments around the rupture zone of the 2007 event to
+perform seismological and geological investigations (Kuo et al., 2016;
+Ku et al., 2018). Valuable data have been recorded from this project,
+and the recording is still in progress.
+Subd
+```
+
+---
+*自動生成日期: 2026-02-04*
+
+
+---
+*Reviewed on 2026-02-05*
