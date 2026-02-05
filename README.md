@@ -58,5 +58,18 @@
   - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
   - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
 
+### 🚀 部署與託管 (Deployment & Hosting)
+現代化的雲端部署平台與工具介紹。
+
+- **Zeabur 雲端平台**
+  - [Zeabur](https://zeabur.com) 是一個現代化的雲端應用部署平台，專為開發者設計，提供簡單快速的部署體驗
+  - **主要特色**：
+    - 🎯 一鍵部署：支援 Git 整合，推送程式碼即可自動部署
+    - ⚡ 快速啟動：毫秒級的冷啟動時間，提供極致的使用者體驗
+    - 🌐 全球 CDN：內建全球內容分發網路，確保低延遲存取
+    - 🔧 多語言支援：原生支援 Node.js、Python、Go、Rust 等主流程式語言
+    - 💰 靈活計費：按實際使用量計費，提供免費額度供開發測試使用
+  - 適合用於部署 Web 應用、API 服務、靜態網站等各類專案
+
 ---
 *本專案由 OpenClaw AI 代理人自動更新與維護。*
