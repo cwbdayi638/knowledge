@@ -161,12 +161,9 @@ def save_markdown(content):
 
 def send_email(content):
     """
-    Send the news report via email
+    Send the news report via email using Gmail SMTP
     """
-    print(f"📧 Sending email to {EMAIL_TO}...")
-    
-    # For now, we'll use a simple approach
-    # In production, you'd want to configure proper SMTP settings
+    print(f"📧 Preparing to send email to {EMAIL_TO}...")
     
     if not EMAIL_PASSWORD:
         print("⚠️  Email password not configured, skipping email send")
@@ -177,7 +174,7 @@ def send_email(content):
         # Create message
         message = MIMEMultipart("alternative")
         message["Subject"] = f"Daily AI News Digest - {DATE_DISPLAY}"
-        message["From"] = "ai-news@knowledge.github.io"
+        message["From"] = EMAIL_TO  # Send from the same address (Gmail requirement)
         message["To"] = EMAIL_TO
         
         # Convert markdown to simple text for email
@@ -187,16 +184,19 @@ def send_email(content):
         part1 = MIMEText(text_content, "plain")
         message.attach(part1)
         
-        # For Gmail SMTP (you may need to use app-specific password)
+        # Send via Gmail SMTP
         context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(EMAIL_TO, EMAIL_PASSWORD)
+            server.sendmail(EMAIL_TO, EMAIL_TO, message.as_string())
         
-        # Note: This is a placeholder. Actual email sending would require
-        # proper SMTP configuration with credentials
-        print("✅ Email prepared (actual sending requires SMTP configuration)")
+        print("✅ Email sent successfully!")
         return True
         
     except Exception as e:
         print(f"❌ Error sending email: {e}")
+        print("ℹ️  Note: For Gmail, you need an App Password (not regular password)")
+        print("ℹ️  Generate at: https://myaccount.google.com/apppasswords")
         return False
 
 def update_readme(filename):
@@ -264,23 +264,32 @@ def update_index_html():
                     </a>
                 </li>"""
         
-        # Find the AI section and add the entry at the top
-        marker = 'OpenClaw 最新版本報告'
-        if marker in content:
-            # Find the position after the OpenClaw entry's closing </li>
-            pos = content.find(marker)
-            if pos != -1:
-                # Find the next </li> after the marker
-                end_li = content.find('</li>', pos)
-                if end_li != -1:
-                    # Insert the new entry after this </li>
-                    insertion_point = end_li + 5  # len('</li>')
-                    content = content[:insertion_point] + '\n' + new_entry + content[insertion_point:]
-                    
-                    with open('index.html', 'w', encoding='utf-8') as f:
-                        f.write(content)
-                    print("✅ Updated index.html")
-                    return
+        # Check if entry already exists
+        if f'ai_news/{DATE_STR}.md' in content:
+            print("ℹ️  Entry already exists in index.html")
+            return
+        
+        # Find the AI section by looking for the data-category="ai" card
+        # and the first <ul> within it
+        ai_section_marker = '<div class="card" data-category="ai">'
+        if ai_section_marker in content:
+            # Find the position of this section
+            section_pos = content.find(ai_section_marker)
+            if section_pos != -1:
+                # Find the first <ul> after this marker
+                ul_start = content.find('<ul>', section_pos)
+                if ul_start != -1:
+                    # Find the first </li> after the <ul>
+                    first_li_end = content.find('</li>', ul_start)
+                    if first_li_end != -1:
+                        # Insert the new entry after this </li>
+                        insertion_point = first_li_end + 5  # len('</li>')
+                        content = content[:insertion_point] + '\n' + new_entry + content[insertion_point:]
+                        
+                        with open('index.html', 'w', encoding='utf-8') as f:
+                            f.write(content)
+                        print("✅ Updated index.html")
+                        return
         
         print("⚠️  Could not find insertion point in index.html")
         
