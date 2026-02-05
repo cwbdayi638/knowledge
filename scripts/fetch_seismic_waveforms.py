@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
 Seismic Waveform Fetching Script
-Fetches 10 minutes of seismic data from IRIS FDSN for NACB station
+Fetches seismic data from IRIS FDSN for NACB station
 Generates PNG plots of waveforms
 Runs every 30 minutes via GitHub Actions
+Supports command-line arguments for custom time windows
 """
 
 import os
 import sys
 from datetime import datetime
+import argparse
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
@@ -20,7 +22,7 @@ STATION = "NACB"
 CHANNEL = "BH*"  # Broadband high-gain channels
 NETWORK = "*"    # Try all networks
 LOCATION = "*"   # Try all locations
-DATA_DURATION = 10 * 60  # 10 minutes in seconds
+DATA_DURATION = 10 * 60  # 10 minutes in seconds (default)
 OUTPUT_DIR = 'seismic_waveforms'
 
 # Alternative FDSN service providers
@@ -54,15 +56,27 @@ def get_fdsn_client():
     print("❌ Could not connect to any FDSN service")
     return None
 
-def fetch_waveforms(client):
+def fetch_waveforms(client, starttime=None, duration=None):
     """
     Fetch seismic waveforms for NACB station
+    Args:
+        client: FDSN client
+        starttime: UTCDateTime or None (default: current time - duration)
+        duration: duration in seconds or None (default: DATA_DURATION)
     """
     print(f"📡 Fetching waveforms for station {STATION}...")
     
-    # Get current time and calculate start time
-    endtime = UTCDateTime()
-    starttime = endtime - DATA_DURATION
+    # Get time range
+    if duration is None:
+        duration = DATA_DURATION
+    
+    if starttime is None:
+        endtime = UTCDateTime()
+        starttime = endtime - duration
+    else:
+        if not isinstance(starttime, UTCDateTime):
+            starttime = UTCDateTime(starttime)
+        endtime = starttime + duration
     
     print(f"   Time range: {starttime} to {endtime}")
     print(f"   Network: {NETWORK}, Station: {STATION}, Location: {LOCATION}, Channel: {CHANNEL}")
@@ -154,9 +168,13 @@ def plot_waveforms(st, filename):
         traceback.print_exc()
         return False
 
-def generate_demo_plot(filename):
+def generate_demo_plot(filename, starttime=None, duration=600):
     """
     Generate a demo plot when real data is unavailable
+    Args:
+        filename: output filename
+        starttime: requested start time or None
+        duration: requested duration in seconds
     """
     print(f"📊 Generating demo plot (real data unavailable)...")
     
@@ -166,7 +184,7 @@ def generate_demo_plot(filename):
         # Create demo data
         fig, axes = plt.subplots(3, 1, figsize=(12, 9))
         
-        time = np.linspace(0, 600, 6000)  # 10 minutes
+        time = np.linspace(0, duration, int(duration * 10))  # 10 samples per second
         
         # Simulated seismic traces
         channels = ['BHZ', 'BHN', 'BHE']
@@ -179,13 +197,17 @@ def generate_demo_plot(filename):
             axes[i].plot(time, signal, 'k-', linewidth=0.5)
             axes[i].set_ylabel(f'{STATION}.{channel}\n({channel})', fontsize=10)
             axes[i].grid(True, alpha=0.3)
-            axes[i].set_xlim(0, 600)
+            axes[i].set_xlim(0, duration)
             
             if i == 2:
                 axes[i].set_xlabel('Time (seconds)', fontsize=10)
         
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        fig.suptitle(f'Seismic Waveforms - Station {STATION} [DEMO DATA]\n{current_time}', 
+        # Use requested time or current time for title
+        if starttime:
+            title_time = starttime.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            title_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        fig.suptitle(f'Seismic Waveforms - Station {STATION} [DEMO DATA]\n{title_time}', 
                      fontsize=14, fontweight='bold', color='red')
         
         plt.tight_layout()
@@ -205,12 +227,41 @@ def main():
     """
     Main execution function
     """
-    # Generate timestamp at execution time with seconds precision
-    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Fetch and plot seismic waveforms from NACB station')
+    parser.add_argument('--starttime', type=str, help='Start time in UTC (format: YYYY-MM-DD HH:MM:SS or YYYY_MM_DD HH:MM)')
+    parser.add_argument('--duration', type=int, help='Duration in seconds (default: 600)')
+    args = parser.parse_args()
+    
+    # Parse start time if provided
+    starttime = None
+    duration = args.duration if args.duration else DATA_DURATION
+    
+    if args.starttime:
+        # Handle different time formats
+        time_str = args.starttime.replace('_', '-').replace('：', ':')
+        try:
+            starttime = UTCDateTime(time_str)
+            print(f"📅 Using specified start time: {starttime}")
+        except Exception as e:
+            print(f"❌ Error parsing start time '{args.starttime}': {e}")
+            return 1
+    
+    # Generate timestamp for filename
+    if starttime:
+        # Use the requested start time for filename
+        timestamp = starttime.strftime('%Y-%m-%d_%H-%M-%S')
+    else:
+        # Use execution time for filename
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     
     print("=" * 70)
     print("🌍 Seismic Waveform Fetching System")
     print(f"📍 Station: {STATION} | Channel: {CHANNEL}")
+    if starttime:
+        print(f"⏰ Time Window: {starttime} to {starttime + duration} ({duration}s)")
+    else:
+        print(f"⏰ Duration: {duration} seconds (recent data)")
     print("=" * 70)
     print()
     
@@ -224,7 +275,7 @@ def main():
         # Step 2: Fetch waveforms
         st = None
         if client:
-            st = fetch_waveforms(client)
+            st = fetch_waveforms(client, starttime=starttime, duration=duration)
         
         # Step 3: Plot waveforms
         plot_filename = f'{OUTPUT_DIR}/waveform_{timestamp}.png'
@@ -233,7 +284,7 @@ def main():
             success = plot_waveforms(st, plot_filename)
         else:
             print("\n⚠️  Real data unavailable, generating demo plot...")
-            success = generate_demo_plot(plot_filename)
+            success = generate_demo_plot(plot_filename, starttime=starttime, duration=duration)
         
         print()
         print("=" * 70)
