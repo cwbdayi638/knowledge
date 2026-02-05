@@ -55,8 +55,9 @@
 - **影音內容分析**
   - [LLM 技術核心與展望 (YouTube Summary)](youtube_summary_HJpOgJ4CvQs.md)
 - **技術文件**
-  - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
   - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
+  - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
+  - [使用者指令歷程與 Prompt 優化建議](instruction_log_and_tips.md)
 
 ### 🚀 部署與託管 (Deployment & Hosting)
 現代化的雲端部署平台與工具介紹。
