@@ -1,6 +1,42 @@
-# Daily AI News Collection System
+# Scripts Directory
 
-This system automatically collects the latest AI news every day at 18:30 UTC, generates a markdown report, sends an email notification, and updates the repository's README.md and index.html files.
+This directory contains automated scripts for data collection and monitoring.
+
+## Available Scripts
+
+### 1. Seismic Waveform Fetching (`fetch_seismic_waveforms.py`)
+
+Automatically fetches and plots seismic waveforms from FDSN web services.
+
+**Features:**
+- 🌊 Fetches 10 minutes of seismic data from multiple FDSN providers
+- 📊 Generates high-quality PNG plots of three-component waveforms
+- 🔄 Automatic retry logic with exponential backoff
+- ✅ Data validation and quality checks
+- 🎯 Graceful fallback to demo data when services unavailable
+- ⏱️ Runs every 30 minutes via GitHub Actions
+
+**Testing:**
+```bash
+# Run unit tests
+python3 scripts/test_fetch_seismic_waveforms.py
+
+# Manual execution
+python3 scripts/fetch_seismic_waveforms.py
+```
+
+See [TESTING.md](TESTING.md) for comprehensive testing documentation.
+
+**Dependencies:**
+- obspy
+- matplotlib
+- numpy
+
+---
+
+### 2. Daily AI News Collection (`collect_ai_news.py`)
+
+Automatically collects the latest AI news every day at 18:30 UTC, generates a markdown report, sends an email notification, and updates the repository's README.md and index.html files.
 
 ## Features
 
@@ -94,7 +130,8 @@ Python packages installed automatically:
 
 ## Testing Locally
 
-To test the script locally:
+### AI News Collection
+To test the AI news script locally:
 
 ```bash
 # Install dependencies
@@ -108,6 +145,22 @@ export OPENAI_API_KEY="your-api-key"  # Optional
 # Run the script
 python scripts/collect_ai_news.py
 ```
+
+### Seismic Waveforms
+To test the waveform script locally:
+
+```bash
+# Install dependencies
+pip install obspy matplotlib numpy
+
+# Run unit tests
+python3 scripts/test_fetch_seismic_waveforms.py
+
+# Run the script
+python3 scripts/fetch_seismic_waveforms.py
+```
+
+For detailed testing documentation, see [TESTING.md](TESTING.md).
 
 ## License
 
