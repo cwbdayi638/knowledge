@@ -13,7 +13,7 @@ Automatically fetches and plots seismic waveforms from FDSN web services.
 - 📊 Generates high-quality PNG plots of three-component waveforms
 - 🔄 Automatic retry logic with exponential backoff
 - ✅ Data validation and quality checks
-- 🎯 Graceful fallback to demo data when services unavailable
+- 🎯 Graceful fallback to example data when services unavailable
 - ⏱️ Runs every 30 minutes via GitHub Actions
 
 **Testing:**

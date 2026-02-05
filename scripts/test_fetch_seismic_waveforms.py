@@ -230,13 +230,31 @@ class TestPlotting(unittest.TestCase):
         self.assertFalse(result)
     
     def test_generate_demo_plot(self):
-        """Test demo plot generation"""
+        """Test example plot generation"""
         filename = os.path.join(self.test_output_dir, 'test_demo.png')
         result = fws.generate_demo_plot(filename)
         
         self.assertTrue(result)
         self.assertTrue(os.path.exists(filename))
         self.assertGreater(os.path.getsize(filename), 0)
+
+    @patch('fetch_seismic_waveforms.read')
+    @patch('fetch_seismic_waveforms.plot_waveforms')
+    def test_generate_demo_plot_uses_example_data(self, mock_plot, mock_read):
+        """Test that example data is used when available"""
+        from obspy import Stream, Trace
+        import numpy as np
+
+        st = Stream([Trace(data=np.random.randn(10))])
+        mock_read.return_value = st
+        mock_plot.return_value = True
+
+        filename = os.path.join(self.test_output_dir, 'test_example.png')
+        result = fws.generate_demo_plot(filename)
+
+        self.assertTrue(result)
+        mock_read.assert_called_once()
+        mock_plot.assert_called_once_with(st, filename, title_suffix=' [EXAMPLE DATA]')
 
 
 class TestMainFunction(unittest.TestCase):
@@ -284,7 +302,7 @@ class TestMainFunction(unittest.TestCase):
     @patch('fetch_seismic_waveforms.get_fdsn_client')
     @patch('fetch_seismic_waveforms.generate_demo_plot')
     def test_main_fallback_to_demo(self, mock_demo, mock_get_client):
-        """Test main function fallback to demo data"""
+        """Test main function fallback to example data"""
         mock_get_client.return_value = None
         mock_demo.return_value = True
         
