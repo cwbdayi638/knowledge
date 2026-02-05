@@ -184,8 +184,8 @@ def plot_waveforms(st, filename, title_suffix=""):
         
         # Add title
         station_label = STATION
-        if st and len(st) > 0:
-            station_label = getattr(st[0].stats, 'station', STATION) or STATION
+        if st and len(st) > 0 and getattr(st[0].stats, 'station', None):
+            station_label = st[0].stats.station
 
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
                      fontsize=14, fontweight='bold')
@@ -214,7 +214,7 @@ def generate_demo_plot(filename):
         if st is not None and len(st) > 0:
             return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
 
-        raise ValueError("Example data stream is empty")
+        raise ValueError("ObsPy example data returned an empty stream")
     except Exception as e:
         print(f"   ⚠️ Example data unavailable, generating synthetic demo plot: {e}")
 
