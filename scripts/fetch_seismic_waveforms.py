@@ -214,12 +214,12 @@ def generate_demo_plot(filename):
             st = read()
         except Exception as read_error:
             raise ValueError(
-                f"ObsPy example data unavailable, will attempt synthetic data fallback: {read_error}"
+                f"ObsPy example data unavailable: {read_error}"
             ) from read_error
         if st is not None and len(st) > 0:
             return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
 
-        raise ValueError("ObsPy example data unavailable or returned empty stream; will attempt synthetic data fallback")
+        raise ValueError("ObsPy example data unavailable or returned empty stream")
     except Exception as e:
         print(f"   ⚠️ {e}")
 
