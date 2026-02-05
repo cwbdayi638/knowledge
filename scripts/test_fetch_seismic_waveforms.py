@@ -22,6 +22,8 @@ import matplotlib.pyplot as plt
 # Import the module to test
 import fetch_seismic_waveforms as fws
 
+TEST_TRACE_SAMPLES = 6000  # 10 minutes at 10 Hz sample rate
+
 
 class TestWaveformValidation(unittest.TestCase):
     """Test waveform data validation functions"""
@@ -135,10 +137,10 @@ class TestWaveformFetching(unittest.TestCase):
         mock_client = MagicMock()
         
         # Create mock stream
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         tr.stats.channel = 'BHZ'
-        tr.stats.npts = 6000
+        tr.stats.npts = TEST_TRACE_SAMPLES
         st = Stream([tr])
         
         mock_client.get_waveforms.return_value = st
@@ -179,7 +181,7 @@ class TestPlotting(unittest.TestCase):
         from obspy import Stream, Trace
         import numpy as np
         
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         tr.stats.channel = 'BHZ'
         st = Stream([tr])
@@ -199,7 +201,7 @@ class TestPlotting(unittest.TestCase):
         channels = ['BHZ', 'BHN', 'BHE']
         traces = []
         for channel in channels:
-            tr = Trace(data=np.random.randn(6000))
+            tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
             tr.stats.station = 'NACB'
             tr.stats.channel = channel
             traces.append(tr)
@@ -216,7 +218,7 @@ class TestPlotting(unittest.TestCase):
         from obspy import Stream, Trace
         import numpy as np
 
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'TEST'
         tr.stats.channel = 'BHZ'
         st = Stream([tr])
@@ -306,7 +308,7 @@ class TestMainFunction(unittest.TestCase):
         mock_client = Mock()
         mock_get_client.return_value = mock_client
         
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         st = Stream([tr])
         mock_fetch.return_value = st
