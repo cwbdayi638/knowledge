@@ -17,6 +17,7 @@
   - [絕對重力觀測技術與儀器](gravity_meters.md)
 - **學術論文摘要 (NTU Seismo Lab)**
   - [完整論文清單 (1997-2025)](papersummaries/NTU_Seismo_Lab_Full_PDF_List.md)
+  - [📂 瀏覽所有 NTU 地震實驗室論文摘要 (230+ 篇)](https://github.com/cwbdayi638/knowledge/tree/main/papersummaries/ntu_seismo_lab_papers)
   - **經典論文深度解析 (Deep Reviews)**
     - [1997: 震後一分鐘的關鍵數據 (One Minute After)](papersummaries/ntu_seismo_lab_papers/Review_001_1997_Teng_One_Minute_After.md)
     - [1997: 台灣 RTD 系統的崛起 (RTD System)](papersummaries/ntu_seismo_lab_papers/Review_002_1997_Wu_RTD_System.md)
