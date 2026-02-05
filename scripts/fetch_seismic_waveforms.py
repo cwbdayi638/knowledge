@@ -80,10 +80,6 @@ def validate_waveform_data(st):
     if len(st) == 0:
         return False, "Empty data stream"
     
-    # Check if we have at least one trace
-    if len(st) < 1:
-        return False, "Insufficient traces"
-    
     # Check if traces have data points
     for tr in st:
         if tr.stats.npts < 10:
