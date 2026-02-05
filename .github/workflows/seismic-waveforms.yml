@@ -1,0 +1,48 @@
+---
+name: Seismic Waveforms Collection
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  fetch-seismic-waveforms:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install obspy matplotlib numpy
+
+      - name: Fetch Seismic Waveforms
+        run: |
+          python scripts/fetch_seismic_waveforms.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email \
+            "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add seismic_waveforms/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m \
+              "🌊 Seismic Waveforms Update - $(date +'%Y-%m-%d %H:%M')"
+            git push
+          fi
