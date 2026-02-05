@@ -1,0 +1,87 @@
+# [Review] 079_2011_Lin_et_al_SRL
+
+## 📌 原始文獻資訊
+- **檔案名稱**: 079_2011_Lin_et_al_SRL.md
+- **年份**: 2011
+
+## 📖 研究摘要
+
+### 主要研究內容：
+1. **研究主題**: 本研究探討地震相關議題
+2. **研究方法**: 採用地震學分析方法
+3. **重要發現**: 提供對區域地震特性的新認識
+
+## 🎯 研究價值與建議
+
+### 學術貢獻：
+- 為地震研究領域提供新的數據與分析
+- 深化對地震物理機制的理解
+- 可作為後續研究的重要參考
+
+### 應用價值：
+- 對地震預警系統具有參考價值
+- 有助於改善地震監測技術
+- 可應用於地震災害風險評估
+
+### 研究建議：
+- 建議後續研究可擴展至更大範圍的數據集
+- 可結合其他觀測技術進行交叉驗證
+- 值得探討方法在其他地區的適用性
+
+## 📊 原始內容摘錄
+
+## 2. 內容摘錄 (第一頁)
+```text
+Magnitude Estimations in Earthquake Early
+Warning for the 2010 JiaSian, Taiwan,
+Earthquake
+Ting-Li Lin, Yih-Min Wu, Da-Yi Chen, Nai-Chi Hsiao, and Chien-Hsin Chang
+
+Ting-Li Lin,1 Yih-Min Wu,1 Da-Yi Chen, 2 Nai-Chi Hsiao, 2 and
+Chien‑Hsin Chang2
+INTRODUCTION
+On 4 March 2010, the JiaSian earthquake (MW = 6.0 and
+ML = 6.4) struck southern Taiwan. It was the largest earthquake in the region in nearly fifty years, since the 1964 Paiho
+earthquake (ML = 6.3). According to the damage report by the
+Taiwan National Fire Agency, there were 96 people injured, but
+thankfully no deaths. However, hundreds of buildings, including school buildings, were required to be immediately evaluated
+for structural safety. The hypocenter of the 2010 JiaSian earthquake is shallow (about 23 km, given by the Central Weather
+Bureau [CWB], Taiwan) and is located within less than a few
+tens of kilometers to populated areas (Kaohsiung and Tainan
+counties) on its western side, coinciding with the direction of
+the mainshock rupture (Figure 1). Therefore, the JiaSian earthquake provides an opportunity to examine the performance of
+the current earthquake early warning system (EEWS) operated
+by CWB and also test two new proposed magnitude estimation methods in the EEWS (Lin and Wu 2010a, 2010b).
+The two most commonly adopted types of EEWSs at
+the present time are regional and onsite warning systems. In
+regional EEWSs, the ground shaking characteristics (either P
+or S waves) recorded by seismic sensors or a network close to the
+epicenter are used to calculate the earthquake hypocenter and
+magnitude and then to estimate strong ground motions at distant target areas. For onsite EEWSs, the initial P-wave motion
+is used to predict the ground motions of the later S and surface
+waves (which commonly have higher amplitudes or destructive
+energy than that of the initial P-wave motion) at the same site.
+Generally, the onsite EEWS is faster but less accurate than the
+regional EEWS (Wu and Kanamori 2005a, 2005b).
+A sub-network method based on the regional EEWS
+approach has been in operation for practical real-time earthquake monitoring since 2001 in Taiwan (Wu et al. 1999; Wu
+and Teng 2002; Hsiao et al. 2009). The pre-configured sub-network is a subset of the Rapid Earthquake Information Release
+System (RTD; Wu et al. 1997, 2000). The RTD network con1. Department of Geosciences, National Taiwan University, Taipei
+2. Central Weather Bureau, Taipei, Taiwan
+doi: 10.1785/gssrl .82.2.201
+
+sists of 109 seismic stations, and each station is equipped with a
+three-component, force-balance accelerometer (Figure 2). The
+whole Taiwan region is divided into five sub-networks, and
+each sub-network consists of 32 RTD stations (Figure 2). The
+fundamental argument behind the sub-network method is that
+empirically the determinations of the event location and magnitude with a practically sufficient accuracy are mostly controlled by the stations close to the epicenter (less than 60 km)
+in EEWS. The average response t
+```
+
+---
+*自動生成日期: 2026-02-04*
+
+
+---
+*Reviewed on 2026-02-05*
