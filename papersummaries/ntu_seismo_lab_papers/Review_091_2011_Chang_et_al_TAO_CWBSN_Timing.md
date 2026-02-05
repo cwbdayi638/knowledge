@@ -6,7 +6,7 @@
 
 ## 📖 研究摘要
 
-Timing is a key factor for an earthquake monitoring system and may affect the determination of earthquake location and related studies. In this work, we examined the telemetry delay within the Central Weather Bureau Seismic Network (CWBSN) from 1991 to 2011 and found that the timing systems, at most of the stations in the CWBSN, could contain an approximate 0.2 sec telemetry delay. Based on our results, the telemetry delay was found to cause a 0.2 sec shift in earthquake origin times during the earthquake location process. However, the delay may not cause a significant difference in earthquake...
+本研究檢驗中央氣象局地震網（CWBSN）從1991年至2011年的遙測延遲，發現大多數站點的計時系統存在約0.2秒的遙測延遲。研究結果顯示，此延遲會導致地震定位過程中發震時間偏移0.2秒，但對地震定位結果本身並無顯著影響。
 
 ### 主要研究內容：
 1. **研究主題**: 本研究探討地震相關議題
