@@ -21,7 +21,6 @@ CHANNEL = "BH*"  # Broadband high-gain channels
 NETWORK = "*"    # Try all networks
 LOCATION = "*"   # Try all locations
 DATA_DURATION = 10 * 60  # 10 minutes in seconds
-TIMESTAMP = datetime.now().strftime('%Y-%m-%d_%H-%M')
 OUTPUT_DIR = 'seismic_waveforms'
 
 # Alternative FDSN service providers
@@ -206,6 +205,9 @@ def main():
     """
     Main execution function
     """
+    # Generate timestamp at execution time with seconds precision
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    
     print("=" * 70)
     print("🌍 Seismic Waveform Fetching System")
     print(f"📍 Station: {STATION} | Channel: {CHANNEL}")
@@ -225,7 +227,7 @@ def main():
             st = fetch_waveforms(client)
         
         # Step 3: Plot waveforms
-        plot_filename = f'{OUTPUT_DIR}/waveform_{TIMESTAMP}.png'
+        plot_filename = f'{OUTPUT_DIR}/waveform_{timestamp}.png'
         
         if st and len(st) > 0:
             success = plot_waveforms(st, plot_filename)
