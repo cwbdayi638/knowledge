@@ -42,6 +42,7 @@
 - [GNSS PWV (可降水量) 推導進階研究](gnss_pwv_advanced.md)
 - [定量降水估計 (QPE) 原理與應用](qpe_meteorology.md)
 - [定量降水預報 (QPF) 技術概論](qpf_meteorology.md)
+- [臨近預報 (Nowcasting) 技術與應用](nowcasting_meteorology.md)
 - [劇烈天氣監測與預報整合系統 (QPESUMS)](qpesums_meteorology.md)
 - [GNSS 資料整合至 QPESUMS 之可行性研究](gnss_qpesums_integration.md)
 - [天氣學理論概述](meteorology.md)
