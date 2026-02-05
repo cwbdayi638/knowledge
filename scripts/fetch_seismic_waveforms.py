@@ -8,6 +8,7 @@ Runs every 30 minutes via GitHub Actions
 
 import os
 import sys
+import time
 from datetime import datetime
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend
@@ -22,37 +23,74 @@ NETWORK = "*"    # Try all networks
 LOCATION = "*"   # Try all locations
 DATA_DURATION = 10 * 60  # 10 minutes in seconds
 OUTPUT_DIR = 'seismic_waveforms'
+TIMEOUT = 30  # Connection timeout in seconds
+MAX_RETRIES = 2  # Maximum retry attempts per provider
 
-# Alternative FDSN service providers
+# Alternative FDSN service providers with priority order
 FDSN_PROVIDERS = [
-    "IRIS",
-    {"base_url": "https://service.iris.edu"},
-    {"base_url": "http://service.iris.edu"},
-    "EARTHSCOPE"
+    {"service": "IRIS", "timeout": TIMEOUT},
+    {"base_url": "https://service.iris.edu", "timeout": TIMEOUT},
+    {"service": "USGS", "timeout": TIMEOUT},
+    {"base_url": "https://earthquake.usgs.gov", "timeout": TIMEOUT},
 ]
 
 def get_fdsn_client():
     """
-    Try to connect to FDSN service with multiple providers
+    Try to connect to FDSN service with multiple providers and retry logic
     """
     print("🌐 Connecting to FDSN web service...")
     
     for provider in FDSN_PROVIDERS:
-        try:
-            if isinstance(provider, dict):
-                print(f"   Trying base URL: {provider['base_url']}...")
-                client = Client(**provider)
-            else:
-                print(f"   Trying provider: {provider}...")
-                client = Client(provider)
-            print(f"✅ Successfully connected!")
-            return client
-        except Exception as e:
-            print(f"   ❌ Failed: {e}")
-            continue
+        for attempt in range(MAX_RETRIES):
+            try:
+                if 'service' in provider:
+                    provider_name = provider['service']
+                    print(f"   Trying provider: {provider_name} (attempt {attempt + 1}/{MAX_RETRIES})...")
+                    client = Client(provider['service'], timeout=provider.get('timeout', TIMEOUT))
+                else:
+                    provider_url = provider.get('base_url', 'unknown')
+                    print(f"   Trying base URL: {provider_url} (attempt {attempt + 1}/{MAX_RETRIES})...")
+                    client = Client(base_url=provider['base_url'], timeout=provider.get('timeout', TIMEOUT))
+                
+                # Test the connection by getting availability
+                print(f"   Testing connection...")
+                client.get_stations(station=STATION, level="station", maxcount=1)
+                print(f"✅ Successfully connected!")
+                return client
+                
+            except Exception as e:
+                print(f"   ❌ Failed: {str(e)[:100]}")
+                if attempt < MAX_RETRIES - 1:
+                    wait_time = 2 ** attempt  # Exponential backoff
+                    print(f"   Waiting {wait_time}s before retry...")
+                    time.sleep(wait_time)
+                continue
     
-    print("❌ Could not connect to any FDSN service")
+    print("❌ Could not connect to any FDSN service after all retries")
     return None
+
+def validate_waveform_data(st):
+    """
+    Validate fetched waveform data
+    Returns: (is_valid, error_message)
+    """
+    if st is None:
+        return False, "No data stream provided"
+    
+    if len(st) == 0:
+        return False, "Empty data stream"
+    
+    # Check if traces have data points
+    for tr in st:
+        if tr.stats.npts < 10:
+            return False, f"Trace {tr.id} has too few data points: {tr.stats.npts}"
+        
+        # Check for data quality
+        if hasattr(tr.stats, 'mseed') and hasattr(tr.stats.mseed, 'dataquality'):
+            if tr.stats.mseed.dataquality not in ['D', 'R', 'Q', 'M']:
+                return False, f"Trace {tr.id} has poor data quality: {tr.stats.mseed.dataquality}"
+    
+    return True, "Data is valid"
 
 def fetch_waveforms(client):
     """
@@ -81,6 +119,13 @@ def fetch_waveforms(client):
         print(f"✅ Fetched {len(st)} traces:")
         for tr in st:
             print(f"   {tr.id}: {tr.stats.starttime} - {tr.stats.endtime}, {tr.stats.npts} samples")
+        
+        # Validate the fetched data
+        is_valid, message = validate_waveform_data(st)
+        if not is_valid:
+            print(f"⚠️  Data validation warning: {message}")
+        else:
+            print(f"✅ Data validation passed: {message}")
         
         return st
         
