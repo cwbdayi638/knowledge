@@ -36,7 +36,7 @@ This data collection is automated using:
 
 ## Notes
 
-When the IRIS FDSN service is temporarily unavailable, the script generates demo waveforms to maintain the collection schedule. These demo plots are clearly marked with "[DEMO DATA]" in red text.
+When the IRIS FDSN service is temporarily unavailable, the script generates example waveforms from ObsPy sample data to maintain the collection schedule. These plots are clearly marked with "[EXAMPLE DATA]" in the title.
 
 ---
 

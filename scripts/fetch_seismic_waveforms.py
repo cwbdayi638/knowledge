@@ -13,7 +13,7 @@ from datetime import datetime
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
-from obspy import UTCDateTime
+from obspy import UTCDateTime, read
 from obspy.clients.fdsn import Client
 
 # Configuration
@@ -149,7 +149,7 @@ def fetch_waveforms(client):
         
         return None
 
-def plot_waveforms(st, filename):
+def plot_waveforms(st, filename, title_suffix=""):
     """
     Plot waveforms and save to PNG file
     """
@@ -183,7 +183,11 @@ def plot_waveforms(st, filename):
                 axes[i].set_xlabel('Time (seconds)', fontsize=10)
         
         # Add title
-        fig.suptitle(f'Seismic Waveforms - Station {STATION}\n{st[0].stats.starttime}', 
+        station_label = STATION
+        if getattr(st[0].stats, 'station', None):
+            station_label = st[0].stats.station
+
+        fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
                      fontsize=14, fontweight='bold')
         
         plt.tight_layout()
@@ -201,11 +205,19 @@ def plot_waveforms(st, filename):
 
 def generate_demo_plot(filename):
     """
-    Generate a demo plot when real data is unavailable
+    Generate an example plot when real data is unavailable
     """
-    print(f"📊 Generating demo plot (real data unavailable)...")
+    print("📊 Generating example plot (real data unavailable)...")
     
     try:
+        st = read()
+        if st is not None and len(st) > 0:
+            return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
+
+        raise ValueError("ObsPy example data unavailable or returned empty stream")
+    except Exception as e:
+        print(f"   ⚠️ ObsPy example data unavailable: {e}")
+
         import numpy as np
         
         # Create demo data
@@ -277,7 +289,7 @@ def main():
         if st and len(st) > 0:
             success = plot_waveforms(st, plot_filename)
         else:
-            print("\n⚠️  Real data unavailable, generating demo plot...")
+            print("\n⚠️  Real data unavailable, generating example plot...")
             success = generate_demo_plot(plot_filename)
         
         print()

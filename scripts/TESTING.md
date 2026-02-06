@@ -25,7 +25,7 @@ python3 test_fetch_seismic_waveforms.py
 
 ### Test Coverage
 
-The test suite includes 16 comprehensive tests covering:
+The test suite includes 18 comprehensive tests covering:
 
 #### 1. Waveform Data Validation (4 tests)
 - `test_validate_none_data`: Validates handling of None input
@@ -42,16 +42,18 @@ The test suite includes 16 comprehensive tests covering:
 - `test_fetch_waveforms_success`: Tests successful data retrieval
 - `test_fetch_waveforms_failure`: Tests error handling during fetch
 
-#### 4. Plotting Functionality (5 tests)
+#### 4. Plotting Functionality (7 tests)
 - `test_plot_waveforms_single_trace`: Tests single trace plotting
 - `test_plot_waveforms_multiple_traces`: Tests multi-trace plotting
 - `test_plot_waveforms_none_data`: Tests None data handling
 - `test_plot_waveforms_empty_stream`: Tests empty stream handling
-- `test_generate_demo_plot`: Tests demo data generation
+- `test_plot_waveforms_station_label`: Tests station label selection in plot titles
+- `test_generate_demo_plot`: Tests example data generation
+- `test_generate_demo_plot_uses_example_data`: Tests example data usage when available
 
 #### 5. Main Function Integration (2 tests)
 - `test_main_success_with_real_data`: Tests complete workflow with real data
-- `test_main_fallback_to_demo`: Tests fallback to demo data
+- `test_main_fallback_to_demo`: Tests fallback to example data
 
 ## Manual Testing
 
@@ -67,7 +69,7 @@ python3 scripts/fetch_seismic_waveforms.py
 Expected output:
 - Connection attempts to multiple FDSN providers
 - Retry logic with exponential backoff
-- Either real waveform data or demo data generation
+- Either real waveform data or example data generation
 - PNG plot saved to `seismic_waveforms/` directory
 
 ### Test Generated Plots
@@ -93,13 +95,13 @@ View the latest plot to verify:
 2. **Service Unavailable** (FDSN services down):
    - Script should retry with exponential backoff
    - Should try multiple providers
-   - Should fallback to demo data gracefully
-   - Plots should be marked as "DEMO DATA"
+   - Should fallback to example data gracefully
+   - Plots should be marked as "EXAMPLE DATA"
 
 3. **Network Timeout**:
    - Script should respect 30-second timeout
    - Should retry failed connections
-   - Should eventually fallback to demo data
+   - Should eventually fallback to example data
 
 ## Testing Checklist
 
@@ -110,7 +112,7 @@ Before committing changes, verify:
 - [ ] PNG plots are generated correctly
 - [ ] Error messages are informative
 - [ ] Retry logic works as expected
-- [ ] Demo data fallback functions properly
+- [ ] Example data fallback functions properly
 - [ ] Data validation catches invalid data
 - [ ] Timeouts are respected
 
@@ -154,14 +156,14 @@ pip install obspy matplotlib numpy
 
 ### No Plot Generated
 
-Check the console output for error messages. The script should fallback to demo data if FDSN services are unavailable.
+Check the console output for error messages. The script should fallback to example data if FDSN services are unavailable.
 
 ### All FDSN Providers Fail
 
 This is expected behavior when services are temporarily down. The script will:
 1. Try all configured providers
 2. Retry with exponential backoff
-3. Generate demo data as fallback
+3. Generate example data as fallback
 4. Exit successfully
 
 ## Test Improvements Made
@@ -169,7 +171,7 @@ This is expected behavior when services are temporarily down. The script will:
 ### 1. Enhanced Error Handling
 - Added retry logic with exponential backoff (1s, 2s delays)
 - Multiple FDSN provider fallback (IRIS, USGS)
-- Graceful degradation to demo data
+- Graceful degradation to example data
 
 ### 2. Data Validation
 - Added `validate_waveform_data()` function
@@ -198,7 +200,7 @@ This is expected behavior when services are temporarily down. The script will:
 ✅ Retry logic works with exponential backoff  
 ✅ Data validation catches invalid inputs  
 ✅ Plots are generated correctly  
-✅ Demo data fallback works  
+✅ Example data fallback works  
 ✅ Error messages are informative  
 ✅ Code is well-documented  
 

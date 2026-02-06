@@ -22,6 +22,8 @@ import matplotlib.pyplot as plt
 # Import the module to test
 import fetch_seismic_waveforms as fws
 
+TEST_TRACE_SAMPLES = 6000  # 10 minutes at 10 Hz sample rate
+
 
 class TestWaveformValidation(unittest.TestCase):
     """Test waveform data validation functions"""
@@ -135,10 +137,10 @@ class TestWaveformFetching(unittest.TestCase):
         mock_client = MagicMock()
         
         # Create mock stream
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         tr.stats.channel = 'BHZ'
-        tr.stats.npts = 6000
+        tr.stats.npts = TEST_TRACE_SAMPLES
         st = Stream([tr])
         
         mock_client.get_waveforms.return_value = st
@@ -179,7 +181,7 @@ class TestPlotting(unittest.TestCase):
         from obspy import Stream, Trace
         import numpy as np
         
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         tr.stats.channel = 'BHZ'
         st = Stream([tr])
@@ -199,7 +201,7 @@ class TestPlotting(unittest.TestCase):
         channels = ['BHZ', 'BHN', 'BHE']
         traces = []
         for channel in channels:
-            tr = Trace(data=np.random.randn(6000))
+            tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
             tr.stats.station = 'NACB'
             tr.stats.channel = channel
             traces.append(tr)
@@ -210,7 +212,27 @@ class TestPlotting(unittest.TestCase):
         
         self.assertTrue(result)
         self.assertTrue(os.path.exists(filename))
-    
+
+    def test_plot_waveforms_station_label(self):
+        """Test station label selection in plot title"""
+        from obspy import Stream, Trace
+        import numpy as np
+
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
+        tr.stats.station = 'TEST'
+        tr.stats.channel = 'BHZ'
+        st = Stream([tr])
+
+        filename = os.path.join(self.test_output_dir, 'test_station_label.png')
+        fig, ax = plt.subplots(1, 1, figsize=(12, 3))
+        with patch('fetch_seismic_waveforms.plt.subplots', return_value=(fig, ax)), \
+             patch('fetch_seismic_waveforms.plt.close'):
+            result = fws.plot_waveforms(st, filename)
+
+        self.assertTrue(result)
+        self.assertIn('Station TEST', fig._suptitle.get_text())
+        plt.close(fig)
+
     def test_plot_waveforms_none_data(self):
         """Test plotting with None data"""
         filename = os.path.join(self.test_output_dir, 'test_none.png')
@@ -230,13 +252,31 @@ class TestPlotting(unittest.TestCase):
         self.assertFalse(result)
     
     def test_generate_demo_plot(self):
-        """Test demo plot generation"""
+        """Test example plot generation"""
         filename = os.path.join(self.test_output_dir, 'test_demo.png')
         result = fws.generate_demo_plot(filename)
         
         self.assertTrue(result)
         self.assertTrue(os.path.exists(filename))
         self.assertGreater(os.path.getsize(filename), 0)
+
+    @patch('fetch_seismic_waveforms.read')
+    @patch('fetch_seismic_waveforms.plot_waveforms')
+    def test_generate_demo_plot_uses_example_data(self, mock_plot, mock_read):
+        """Test that example data is used when available"""
+        from obspy import Stream, Trace
+        import numpy as np
+
+        st = Stream([Trace(data=np.random.randn(10))])
+        mock_read.return_value = st
+        mock_plot.return_value = True
+
+        filename = os.path.join(self.test_output_dir, 'test_example.png')
+        result = fws.generate_demo_plot(filename)
+
+        self.assertTrue(result)
+        mock_read.assert_called_once()
+        mock_plot.assert_called_once_with(st, filename, title_suffix=' [EXAMPLE DATA]')
 
 
 class TestMainFunction(unittest.TestCase):
@@ -268,7 +308,7 @@ class TestMainFunction(unittest.TestCase):
         mock_client = Mock()
         mock_get_client.return_value = mock_client
         
-        tr = Trace(data=np.random.randn(6000))
+        tr = Trace(data=np.random.randn(TEST_TRACE_SAMPLES))
         tr.stats.station = 'NACB'
         st = Stream([tr])
         mock_fetch.return_value = st
@@ -284,7 +324,7 @@ class TestMainFunction(unittest.TestCase):
     @patch('fetch_seismic_waveforms.get_fdsn_client')
     @patch('fetch_seismic_waveforms.generate_demo_plot')
     def test_main_fallback_to_demo(self, mock_demo, mock_get_client):
-        """Test main function fallback to demo data"""
+        """Test main function fallback to example data"""
         mock_get_client.return_value = None
         mock_demo.return_value = True
         

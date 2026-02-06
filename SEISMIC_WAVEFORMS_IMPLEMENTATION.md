@@ -13,7 +13,7 @@ A robust Python script using ObsPy that:
 - Targets the NACB station with broadband channels (BHZ, BHN, BHE)
 - Attempts multiple FDSN service providers for reliability
 - Generates high-quality PNG plots of three-component waveforms
-- Includes fallback to synthetic demo data when service is unavailable
+- Includes fallback to example ObsPy sample data when service is unavailable
 - Uses proper timestamp handling with seconds precision
 
 Key Features:
@@ -89,7 +89,7 @@ knowledge/
 
 The system includes robust error handling:
 1. Multiple FDSN service provider attempts
-2. Fallback to demo data if service unavailable
+2. Fallback to example data if service unavailable
 3. Clear error messages with debugging information
 4. Graceful degradation without script failure
 
