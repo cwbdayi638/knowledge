@@ -5,35 +5,41 @@
 All components have been successfully created and are ready to use:
 
 1. **✓ monsoon.md** - Comprehensive 113-line document (275 words) about monsoon in 氣象學
-2. **✓ scripts/send_monsoon_email.py** - Automated email sending script
-3. **✓ scripts/test_monsoon_email.py** - Email preview/testing script
-4. **✓ README.md** - Updated with monsoon document link
-5. **✓ MONSOON_EMAIL_IMPLEMENTATION.md** - Complete implementation documentation
+2. **✓ scripts/send_monsoon_email.py** - Automated email sending script (uses send_email.py)
+3. **✓ scripts/send_monsoon_email_direct.py** - Direct email sending script (standalone)
+4. **✓ scripts/test_monsoon_email.py** - Email preview/testing script
+5. **✓ README.md** - Updated with monsoon document link
+6. **✓ MONSOON_EMAIL_IMPLEMENTATION.md** - Complete implementation documentation
+7. **✓ .github/workflows/send-monsoon-email.yml** - GitHub Actions workflow
 
 ## 📧 TO SEND EMAIL TO oceanicdayi@gmail.com
 
-### Option A: Using Repository Secrets (Recommended)
+### Option A: GitHub Actions Workflow (Recommended - Easiest)
 
-If you have GitHub repository access, set these secrets:
-- `SENDER_EMAIL_NEW`: Your Gmail address
-- `CWBDAYI_EMAIL_PASSWORD`: Your Gmail app password
+The repository now has a GitHub Actions workflow ready to send the email:
 
-Then run:
+1. Go to the GitHub repository: https://github.com/cwbdayi638/knowledge
+2. Click on "Actions" tab
+3. Select "Send Monsoon Email" workflow
+4. Click "Run workflow" button
+5. Select the branch (copilot/explain-monsoon-in-meteorology)
+6. Click "Run workflow"
+
+The workflow will automatically:
+- Use the EMAIL_PASSWORD secret from repository settings
+- Read monsoon.md content
+- Send email to oceanicdayi@gmail.com
+- Report success/failure status
+
+### Option B: Direct Command Line (Fastest if you have credentials)
+
 ```bash
 cd /home/runner/work/knowledge/knowledge
-python3 scripts/send_monsoon_email.py
+export EMAIL_PASSWORD="your_gmail_app_password"
+python3 scripts/send_monsoon_email_direct.py
 ```
 
-### Option B: Direct Command Line
-
-```bash
-cd /home/runner/work/knowledge/knowledge
-export SENDER_EMAIL_NEW="your_email@gmail.com"
-export CWBDAYI_EMAIL_PASSWORD="your_app_password"
-python3 scripts/send_monsoon_email.py
-```
-
-### Option C: Using Existing send_email.py
+### Option C: Using Original send_email.py wrapper
 
 ```bash
 cd /home/runner/work/knowledge/knowledge/scripts

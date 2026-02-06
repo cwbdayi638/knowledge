@@ -25,7 +25,7 @@ jobs:
           EMAIL_TO: oceanicdayi@gmail.com
         run: |
           echo "📧 Sending monsoon email to oceanicdayi@gmail.com"
-          python3 scripts/send_monsoon_email.py
+          python3 scripts/send_monsoon_email_direct.py
           
       - name: Report Status
         if: always()
