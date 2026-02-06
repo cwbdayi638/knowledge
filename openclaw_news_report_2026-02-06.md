@@ -1,19 +1,33 @@
 # OpenClaw 最新消息報告（2026-02-06）
 
 **日期**：2026年02月06日  
-**更新時間**：05:03 UTC  
+**更新時間**：06:16 UTC  
 **資料來源**：多個新聞來源
 
 ---
 
 ## 📰 最新消息摘要
 
-### 1. OpenClaw 2026.1.29 穩定版發布
+### 1. OpenClaw – Moltbot Renamed Again
 
-- **來源**：OpenClaw Official
-- **日期**：2026-01-29
-- **連結**：[查看詳情](https://github.com/openchatai/openclaw)
-- **摘要**：來自 OpenClaw Official 的最新資訊。 強化了安全性相關功能。
+- **來源**：Hacker News
+- **日期**：2026-01-30
+- **連結**：[查看詳情](https://openclaw.ai/blog/introducing-openclaw)
+- **摘要**：來自 Hacker News 的最新資訊。
+
+### 2. OpenClaw is what Apple intelligence should have been
+
+- **來源**：Hacker News
+- **日期**：2026-02-05
+- **連結**：[查看詳情](https://www.jakequist.com/thoughts/openclaw-is-what-apple-intelligence-should-have-been)
+- **摘要**：來自 Hacker News 的最新資訊。
+
+### 3. A sane but bull case on Clawdbot / OpenClaw
+
+- **來源**：Hacker News
+- **日期**：2026-02-03
+- **連結**：[查看詳情](https://brandon.wang/2026/clawdbot)
+- **摘要**：來自 Hacker News 的最新資訊。
 
 ---
 
