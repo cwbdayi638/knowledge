@@ -278,8 +278,9 @@ def send_email(content, filename):
         except Exception as ssl_error:
             # Try with STARTTLS if SSL fails
             print(f"⚠️  SSL 連接失敗，嘗試 STARTTLS: {ssl_error}")
+            context = ssl.create_default_context()
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
-                server.starttls()
+                server.starttls(context=context)
                 server.login(sender, password)
                 server.sendmail(sender, EMAIL_TO, message.as_string())
             print("✅ 電子郵件發送成功！(使用 Gmail SMTP STARTTLS)")
