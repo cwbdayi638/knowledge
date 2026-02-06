@@ -64,6 +64,7 @@
 - **技術文件**
   - [GitHub Agent 功能介紹完整指南](github_agent_capabilities.md)
   - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
+  - [OpenClaw 新聞收集系統說明](OPENCLAW_NEWS_README.md) 📰
   - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
   - [使用者指令歷程與 Prompt 優化建議](instruction_log_and_tips.md)
 
