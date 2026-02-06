@@ -1,0 +1,53 @@
+---
+name: OpenClaw News Collection
+
+on:
+  schedule:
+    # Run every day at 05:00 UTC (13:00 Taiwan Time)
+    - cron: '0 5 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  collect-openclaw-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Collect OpenClaw News
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          CWBDAYI_EMAIL_PASSWORD: ${{ secrets.CWBDAYI_EMAIL_PASSWORD }}
+          SENDER_EMAIL_NEW: ${{ secrets.SENDER_EMAIL_NEW }}
+          EMAIL_TO: oceanicdayi@gmail.com
+        run: |
+          python scripts/collect_openclaw_news.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email \
+            "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add openclaw_news_report_*.md README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m \
+              "📰 OpenClaw 新聞更新 - $(date +'%Y-%m-%d')"
+            git push
+          fi
