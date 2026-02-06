@@ -53,6 +53,7 @@
 人工智慧在科學研究中的應用及系統維護筆記。
 
 - **AI 新聞與分析**
+  - [OpenClaw 最新版本報告 (2026-02-06)](openclaw_news_report_2026-02-06.md)
   - [每日 AI 新聞深入解說 (2026-02-05)](ai_news/2026-02-05.md)
   - [OpenClaw 最新版本報告 (2026-02-05)](openclaw_news_report_2026-02-05.md)
   - [每日 AI 新聞深入解說 (2026-02-05)](ai_news/2026-02-05.md)
@@ -63,6 +64,7 @@
 - **技術文件**
   - [GitHub Agent 功能介紹完整指南](github_agent_capabilities.md)
   - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
+  - [OpenClaw 新聞收集系統說明](OPENCLAW_NEWS_README.md) 📰
   - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
   - [使用者指令歷程與 Prompt 優化建議](instruction_log_and_tips.md)
 
