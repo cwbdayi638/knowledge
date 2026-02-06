@@ -31,6 +31,7 @@ except ImportError:
     MISSING_DEPENDENCIES.append('matplotlib')
 
 try:
+    # Check if obspy is available for waveform tests.
     import obspy  # noqa: F401
 except ImportError:
     MISSING_DEPENDENCIES.append('obspy')
@@ -50,7 +51,7 @@ else:
 TEST_TRACE_SAMPLES = 6000  # 10 minutes at 10 Hz sample rate
 
 
-@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
+@unittest.skipIf(SKIP_REASON, SKIP_REASON or "Missing dependencies")
 class TestWaveformValidation(unittest.TestCase):
     """Test waveform data validation functions"""
     
@@ -99,7 +100,7 @@ class TestWaveformValidation(unittest.TestCase):
         self.assertIn("too few data points", message)
 
 
-@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
+@unittest.skipIf(SKIP_REASON, SKIP_REASON or "Missing dependencies")
 class TestClientConnection(unittest.TestCase):
     """Test FDSN client connection functionality"""
     
@@ -148,7 +149,7 @@ class TestClientConnection(unittest.TestCase):
         self.assertIsNone(client)
 
 
-@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
+@unittest.skipIf(SKIP_REASON, SKIP_REASON or "Missing dependencies")
 class TestWaveformFetching(unittest.TestCase):
     """Test waveform fetching functionality"""
     
@@ -190,7 +191,7 @@ class TestWaveformFetching(unittest.TestCase):
         self.assertIsNone(result)
 
 
-@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
+@unittest.skipIf(SKIP_REASON, SKIP_REASON or "Missing dependencies")
 class TestPlotting(unittest.TestCase):
     """Test plotting functionality"""
     
@@ -308,7 +309,7 @@ class TestPlotting(unittest.TestCase):
         mock_plot.assert_called_once_with(st, filename, title_suffix=' [EXAMPLE DATA]')
 
 
-@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
+@unittest.skipIf(SKIP_REASON, SKIP_REASON or "Missing dependencies")
 class TestMainFunction(unittest.TestCase):
     """Test main execution function"""
     
