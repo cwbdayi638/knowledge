@@ -21,7 +21,7 @@ EMAIL_TO = os.environ.get('EMAIL_TO', 'oceanicdayi@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 NOW = datetime.now()
 DATE_STR = NOW.strftime('%Y-%m-%d')
-DATE_DISPLAY = f"{NOW.year}年{NOW.month}月{NOW.day}日"
+DATE_DISPLAY = NOW.strftime('%Y年%m月%d日')
 
 def collect_ai_news():
     """
@@ -115,7 +115,7 @@ def build_traditional_chinese_summary(item):
 
 def generate_markdown(news_items):
     """
-    Generate markdown content for the news report
+    Generate markdown content for the news report with Traditional Chinese summaries.
     """
     print("📝 Generating markdown report...")
     
