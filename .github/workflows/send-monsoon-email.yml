@@ -1,0 +1,37 @@
+---
+name: Send Monsoon Email
+
+on:
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  send-monsoon-email:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send Monsoon Email
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: oceanicdayi@gmail.com
+        run: |
+          echo "📧 Sending monsoon email to oceanicdayi@gmail.com"
+          python3 scripts/send_monsoon_email.py
+          
+      - name: Report Status
+        if: always()
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "✅ Email sent successfully!"
+          else
+            echo "❌ Email sending failed. Check the logs above."
+          fi
