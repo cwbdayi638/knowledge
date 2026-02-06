@@ -35,8 +35,10 @@ try:
 except ImportError:
     MISSING_DEPENDENCIES.append('obspy')
 
-SKIP_REASON = None if not MISSING_DEPENDENCIES else (
+SKIP_REASON = (
     "Missing dependencies: " + ", ".join(MISSING_DEPENDENCIES)
+    if MISSING_DEPENDENCIES
+    else None
 )
 
 # Import the module to test (when dependencies are available)
