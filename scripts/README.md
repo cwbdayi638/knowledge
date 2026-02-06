@@ -42,6 +42,7 @@ Automatically collects the latest AI news every day at 18:30 UTC, generates a ma
 
 - 🔄 **Automated Collection**: Runs daily at 18:30 UTC via GitHub Actions
 - 📰 **News Aggregation**: Collects latest AI news from multiple sources (TechCrunch, The Verge, etc.)
+- 🈶 **繁體中文摘要**：以繁體中文產生摘要與郵件內容
 - 📧 **Email Notifications**: Sends digest to oceanicdayi@gmail.com
 - 📝 **Markdown Reports**: Creates dated markdown files in `ai_news/` directory
 - 🔄 **Auto Updates**: Updates README.md and index.html with new entries

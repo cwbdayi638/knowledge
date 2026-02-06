@@ -5,10 +5,11 @@
 This automation system:
 1. **Runs daily at 18:30 UTC** via GitHub Actions
 2. **Collects latest AI news** from multiple sources
-3. **Creates markdown file** in `ai_news/YYYY-MM-DD.md`
-4. **Sends email** to oceanicdayi@gmail.com with the digest
-5. **Updates README.md** with new entry link
-6. **Updates index.html** with new entry link
+3. **Generates Traditional Chinese summaries** for the digest
+4. **Creates markdown file** in `ai_news/YYYY-MM-DD.md`
+5. **Sends email** to oceanicdayi@gmail.com with the digest
+6. **Updates README.md** with new entry link
+7. **Updates index.html** with new entry link
 
 ## Files Created
 

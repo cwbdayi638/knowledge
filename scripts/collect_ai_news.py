@@ -20,7 +20,7 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
 EMAIL_TO = os.environ.get('EMAIL_TO', 'oceanicdayi@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 DATE_STR = datetime.now().strftime('%Y-%m-%d')
-DATE_DISPLAY = datetime.now().strftime('%B %d, %Y')
+DATE_DISPLAY = datetime.now().strftime('%Y年%m月%d日')
 
 def collect_ai_news():
     """
@@ -77,27 +77,40 @@ def collect_ai_news():
         print("📝 Using fallback AI news topics...")
         news_items = [
             {
-                'title': 'Latest Developments in Large Language Models',
+                'title': '大型語言模型的最新進展',
                 'url': '#',
-                'source': 'AI Research Community',
-                'summary': 'Recent advances in LLM architecture and training methods.'
+                'source': 'AI 研究社群',
+                'summary': '最新模型架構與訓練方法的研究突破，帶來更強的語言理解能力。'
             },
             {
-                'title': 'AI Safety and Alignment Progress',
+                'title': 'AI 安全與對齊研究進展',
                 'url': '#',
-                'source': 'AI Safety Research',
-                'summary': 'New approaches to ensuring AI systems remain aligned with human values.'
+                'source': 'AI 安全研究',
+                'summary': '新方法提升系統與人類價值的對齊程度，確保安全部署。'
             },
             {
-                'title': 'Practical Applications of AI in Industry',
+                'title': 'AI 在產業中的實際應用',
                 'url': '#',
-                'source': 'Industry Reports',
-                'summary': 'How businesses are successfully deploying AI solutions.'
+                'source': '產業報告',
+                'summary': '企業導入 AI 解決方案的最新案例與效益分析。'
             }
         ]
     
     print(f"✅ Collected {len(news_items)} news items")
     return news_items[:10]  # Limit to top 10
+
+def build_traditional_chinese_summary(item):
+    """
+    Build a Traditional Chinese summary for a news item.
+    """
+    summary = item.get('summary')
+    if summary:
+        return summary
+
+    title = item.get('title', '').strip()
+    if title:
+        return f"本則新聞重點為「{title}」，更多內容請參閱原文。"
+    return "本則新聞重點請參閱原文。"
 
 def generate_markdown(news_items):
     """
@@ -105,40 +118,38 @@ def generate_markdown(news_items):
     """
     print("📝 Generating markdown report...")
     
-    content = f"""# Global AI News Daily Digest - {DATE_STR}
+    content = f"""# 全球 AI 新聞每日摘要 - {DATE_STR}
 
-**Date**: {DATE_DISPLAY}  
-**Time**: {datetime.now().strftime('%H:%M')} UTC  
-**Source**: Multiple AI News Feeds
+**日期**: {DATE_DISPLAY}  
+**時間**: {datetime.now().strftime('%H:%M')} UTC  
+**來源**: 多個 AI 新聞來源
 
 ---
 
-## Latest AI News Headlines
+## 最新 AI 新聞標題
 
 """
     
     for i, item in enumerate(news_items, 1):
         content += f"## {i}. {item['title']}\n"
-        content += f"*   **Source**: {item['source']}\n"
-        content += f"*   **Link**: [{item['url']}]({item['url']})\n"
-        
-        if 'summary' in item:
-            content += f"*   **Summary**: {item['summary']}\n"
+        content += f"*   **來源**: {item['source']}\n"
+        content += f"*   **連結**: [{item['url']}]({item['url']})\n"
+        content += f"*   **摘要**: {build_traditional_chinese_summary(item)}\n"
         
         content += "\n"
     
     content += f"""---
 
-## Key Themes Today
+## 今日關鍵主題
 
-- **AI Research**: Continued advances in model architectures and training methods
-- **Industry Adoption**: Growing implementation of AI solutions across sectors
-- **Ethics & Safety**: Ongoing discussions about responsible AI development
-- **Applications**: New use cases emerging in various domains
+- **AI 研究**：模型架構與訓練方法持續突破
+- **產業導入**：AI 解決方案在各產業加速落地
+- **倫理與安全**：負責任 AI 的治理與對齊討論升溫
+- **應用場景**：多元場景持續擴大，帶動新需求
 
 ---
 
-*Generated automatically by Daily AI News Collection System | {DATE_STR}*
+*由每日 AI 新聞蒐集系統自動生成 | {DATE_STR}*
 """
     
     return content
@@ -173,7 +184,7 @@ def send_email(content):
     try:
         # Create message
         message = MIMEMultipart("alternative")
-        message["Subject"] = f"Daily AI News Digest - {DATE_DISPLAY}"
+        message["Subject"] = f"每日 AI 新聞摘要 - {DATE_DISPLAY}"
         message["From"] = EMAIL_TO  # Send from the same address (Gmail requirement)
         message["To"] = EMAIL_TO
         
