@@ -11,6 +11,8 @@ import ssl
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
 import requests
 from bs4 import BeautifulSoup
 
@@ -248,7 +250,7 @@ def send_email(content, filename):
     
     try:
         # Create message
-        message = MIMEMultipart("alternative")
+        message = MIMEMultipart()
         message["Subject"] = f"OpenClaw 最新消息報告 - {DATE_DISPLAY_ZH}"
         message["From"] = sender
         message["To"] = EMAIL_TO
@@ -257,15 +259,32 @@ def send_email(content, filename):
         text_content = f"""OpenClaw 最新消息報告
 日期：{DATE_DISPLAY_ZH}
 
-{content}
+請參閱附件中的完整 Markdown 報告。
+
+摘要：
+{content[:500]}...
 
 ---
-檔案已上傳至 GitHub 儲存庫：{filename}
+完整報告請見附件：{filename}
 """
         
         # Attach plain text version
         part1 = MIMEText(text_content, "plain", "utf-8")
         message.attach(part1)
+        
+        # Attach the markdown file
+        if os.path.exists(filename):
+            with open(filename, "rb") as attachment:
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(attachment.read())
+            
+            encoders.encode_base64(part)
+            part.add_header(
+                "Content-Disposition",
+                f"attachment; filename={filename}",
+            )
+            message.attach(part)
+            print(f"📎 已附加檔案：{filename}")
         
         # Try Gmail SMTP first
         try:
