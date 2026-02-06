@@ -9,22 +9,46 @@ import sys
 import unittest
 from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime
-import numpy as np
+MISSING_DEPENDENCIES = []
+
+try:
+    import numpy as np
+except ModuleNotFoundError:
+    np = None
+    MISSING_DEPENDENCIES.append('numpy')
 
 # Add scripts directory to path
 sys.path.insert(0, os.path.dirname(__file__))
 
 # Mock matplotlib before importing the module
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+try:
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    matplotlib = None
+    plt = None
+    MISSING_DEPENDENCIES.append('matplotlib')
 
-# Import the module to test
-import fetch_seismic_waveforms as fws
+try:
+    import obspy  # noqa: F401
+except ModuleNotFoundError:
+    MISSING_DEPENDENCIES.append('obspy')
+
+SKIP_REASON = None if not MISSING_DEPENDENCIES else (
+    "Missing dependencies: " + ", ".join(MISSING_DEPENDENCIES)
+)
+
+# Import the module to test (when dependencies are available)
+if SKIP_REASON is None:
+    import fetch_seismic_waveforms as fws
+else:
+    fws = None
 
 TEST_TRACE_SAMPLES = 6000  # 10 minutes at 10 Hz sample rate
 
 
+@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
 class TestWaveformValidation(unittest.TestCase):
     """Test waveform data validation functions"""
     
@@ -73,6 +97,7 @@ class TestWaveformValidation(unittest.TestCase):
         self.assertIn("too few data points", message)
 
 
+@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
 class TestClientConnection(unittest.TestCase):
     """Test FDSN client connection functionality"""
     
@@ -121,6 +146,7 @@ class TestClientConnection(unittest.TestCase):
         self.assertIsNone(client)
 
 
+@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
 class TestWaveformFetching(unittest.TestCase):
     """Test waveform fetching functionality"""
     
@@ -162,6 +188,7 @@ class TestWaveformFetching(unittest.TestCase):
         self.assertIsNone(result)
 
 
+@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
 class TestPlotting(unittest.TestCase):
     """Test plotting functionality"""
     
@@ -279,6 +306,7 @@ class TestPlotting(unittest.TestCase):
         mock_plot.assert_called_once_with(st, filename, title_suffix=' [EXAMPLE DATA]')
 
 
+@unittest.skipIf(SKIP_REASON is not None, SKIP_REASON)
 class TestMainFunction(unittest.TestCase):
     """Test main execution function"""
     
