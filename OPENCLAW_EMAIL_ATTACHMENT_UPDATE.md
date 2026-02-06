@@ -48,7 +48,7 @@ if os.path.exists(filename):
     encoders.encode_base64(part)
     part.add_header(
         "Content-Disposition",
-        f"attachment; filename= {filename}",
+        f"attachment; filename={filename}",
     )
     message.attach(part)
 ```
