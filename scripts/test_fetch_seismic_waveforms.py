@@ -13,7 +13,7 @@ MISSING_DEPENDENCIES = []
 
 try:
     import numpy as np
-except ModuleNotFoundError:
+except ImportError:
     np = None
     MISSING_DEPENDENCIES.append('numpy')
 
@@ -25,14 +25,14 @@ try:
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-except ModuleNotFoundError:
+except ImportError:
     matplotlib = None
     plt = None
     MISSING_DEPENDENCIES.append('matplotlib')
 
 try:
     import obspy  # noqa: F401
-except ModuleNotFoundError:
+except ImportError:
     MISSING_DEPENDENCIES.append('obspy')
 
 SKIP_REASON = None if not MISSING_DEPENDENCIES else (
