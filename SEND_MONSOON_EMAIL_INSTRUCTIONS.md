@@ -79,7 +79,9 @@ Then trigger from GitHub UI: Actions → Send Monsoon Email → Run workflow
 
 **To:** oceanicdayi@gmail.com  
 **Subject:** 氣象學知識：季風 (Monsoon) 完整說明  
-**Content:** Full monsoon.md (2,375 characters) including:
+**Content:** Full monsoon.md content (2,375 characters) + greeting and footer = 2,462 total characters
+
+### Topics Covered:
 
 ### Topics Covered:
 1. 季風的定義與基本概念
