@@ -39,7 +39,7 @@ except ImportError:
 SKIP_REASON = "Missing dependencies: " + ", ".join(MISSING_DEPENDENCIES) if MISSING_DEPENDENCIES else ""
 
 # Import the module to test (when dependencies are available)
-if not SKIP_REASON:
+if not MISSING_DEPENDENCIES:
     import fetch_seismic_waveforms as fws
 else:
     fws = None
