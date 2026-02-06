@@ -48,6 +48,7 @@
 - [GNSS 資料整合至 QPESUMS 之可行性研究](gnss_qpesums_integration.md)
 - [天氣學理論概述](meteorology.md)
 - [梅雨成因與機制分析](meiyu.md)
+- [季風系統與氣候影響](monsoon.md)
 
 ### 🤖 AI 與技術筆記 (AI & Tech Notes)
 人工智慧在科學研究中的應用及系統維護筆記。

@@ -7,12 +7,14 @@ from email.mime.multipart import MIMEMultipart
 def send_email(to_email, subject, body):
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    sender_email = os.getenv('SENDER_EMAIL_NEW')
-    password = os.getenv('CWBDAYI_EMAIL_PASSWORD')
     
-    if not sender_email or not password:
+    # Try multiple credential sources for compatibility
+    sender_email = os.getenv('SENDER_EMAIL_NEW') or os.getenv('EMAIL_FROM') or to_email
+    password = os.getenv('CWBDAYI_EMAIL_PASSWORD') or os.getenv('EMAIL_PASSWORD')
+    
+    if not password:
         print("Error: Email credentials not found in environment variables.")
-        print("Please set SENDER_EMAIL_NEW and CWBDAYI_EMAIL_PASSWORD")
+        print("Please set CWBDAYI_EMAIL_PASSWORD or EMAIL_PASSWORD")
         return False
 
     msg = MIMEMultipart()
