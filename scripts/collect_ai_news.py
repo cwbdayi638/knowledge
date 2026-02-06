@@ -19,8 +19,9 @@ from bs4 import BeautifulSoup
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
 EMAIL_TO = os.environ.get('EMAIL_TO', 'oceanicdayi@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
-DATE_STR = datetime.now().strftime('%Y-%m-%d')
-DATE_DISPLAY = datetime.now().strftime('%Y年%m月%d日')
+NOW = datetime.now()
+DATE_STR = NOW.strftime('%Y-%m-%d')
+DATE_DISPLAY = f"{NOW.year}年{NOW.month}月{NOW.day}日"
 
 def collect_ai_news():
     """
@@ -101,7 +102,7 @@ def collect_ai_news():
 
 def build_traditional_chinese_summary(item):
     """
-    Build a Traditional Chinese summary for a news item.
+    Build a Traditional Chinese summary for a news item with fallback text.
     """
     summary = item.get('summary')
     if summary:
@@ -121,7 +122,7 @@ def generate_markdown(news_items):
     content = f"""# 全球 AI 新聞每日摘要 - {DATE_STR}
 
 **日期**: {DATE_DISPLAY}  
-**時間**: {datetime.now().strftime('%H:%M')} UTC  
+**時間**: {NOW.strftime('%H:%M')} UTC  
 **來源**: 多個 AI 新聞來源
 
 ---

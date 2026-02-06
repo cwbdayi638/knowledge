@@ -35,7 +35,7 @@ class TestMarkdownGeneration(unittest.TestCase):
         self.assertIn('本則新聞重點為', content)
         self.assertIn('Test AI Title', content)
 
-    def test_generate_markdown_uses_existing_summary(self):
+    def test_generate_markdown_preserves_traditional_chinese_summary(self):
         items = [
             {
                 'title': 'Test AI Title',
