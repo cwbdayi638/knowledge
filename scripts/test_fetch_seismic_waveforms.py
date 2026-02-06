@@ -36,14 +36,10 @@ try:
 except ImportError:
     MISSING_DEPENDENCIES.append('obspy')
 
-SKIP_REASON = (
-    "Missing dependencies: " + ", ".join(MISSING_DEPENDENCIES)
-    if MISSING_DEPENDENCIES
-    else ""
-)
+SKIP_REASON = "Missing dependencies: " + ", ".join(MISSING_DEPENDENCIES) if MISSING_DEPENDENCIES else ""
 
 # Import the module to test (when dependencies are available)
-if SKIP_REASON is None:
+if not SKIP_REASON:
     import fetch_seismic_waveforms as fws
 else:
     fws = None
