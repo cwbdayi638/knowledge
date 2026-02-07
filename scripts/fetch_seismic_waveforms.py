@@ -34,7 +34,7 @@ DEMO_DATA_SUFFIX = " [DEMO DATA]"
 COLOR_VERTICAL = '#2E86AB'    # Blue for Z (vertical)
 COLOR_NORTH = '#A23B72'       # Red/Purple for N (north)
 COLOR_EAST = '#06A77D'        # Green for E (east)
-COLOR_TITLE_WARNING = '#FF0000'  # Red for example/demo data titles
+COLOR_TITLE_DEMO = '#FF0000'     # Red for example/demo data titles
 COLOR_TITLE_NORMAL = '#1a1a1a'   # Dark gray for normal titles
 
 # Alternative FDSN service providers with priority order
@@ -179,25 +179,20 @@ def plot_waveforms(st, filename, title_suffix=""):
         if num_traces == 1:
             axes = [axes]
         
-        # Define colors for different channels (Z=blue, N=red, E=green)
-        color_map = {
-            'Z': COLOR_VERTICAL,   # Blue for vertical
-            'N': COLOR_NORTH,      # Red/Purple for north
-            'E': COLOR_EAST,       # Green for east
-        }
-        
         # Plot each trace
         for i, tr in enumerate(st):
             times = tr.times()
             data = tr.data
             
-            # Determine color based on channel name
+            # Determine color based on channel name (check last character for component)
             channel = tr.stats.channel
             color = 'k'  # default black
-            for key in color_map:
-                if key in channel:
-                    color = color_map[key]
-                    break
+            if channel.endswith('Z'):
+                color = COLOR_VERTICAL
+            elif channel.endswith('N'):
+                color = COLOR_NORTH
+            elif channel.endswith('E'):
+                color = COLOR_EAST
             
             axes[i].plot(times, data, color=color, linewidth=0.7, alpha=0.9)
             axes[i].set_ylabel(f'{tr.id}\n({tr.stats.channel})', 
@@ -222,7 +217,7 @@ def plot_waveforms(st, filename, title_suffix=""):
         if getattr(st[0].stats, 'station', None):
             station_label = st[0].stats.station
 
-        title_color = COLOR_TITLE_WARNING if (EXAMPLE_DATA_SUFFIX in title_suffix or DEMO_DATA_SUFFIX in title_suffix) else COLOR_TITLE_NORMAL
+        title_color = COLOR_TITLE_DEMO if (EXAMPLE_DATA_SUFFIX in title_suffix or DEMO_DATA_SUFFIX in title_suffix) else COLOR_TITLE_NORMAL
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
                      fontsize=15, fontweight='bold', color=title_color)
         
@@ -290,7 +285,7 @@ def generate_demo_plot(filename):
         
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         fig.suptitle(f'Seismic Waveforms - Station {STATION}{DEMO_DATA_SUFFIX}\n{current_time}', 
-                     fontsize=15, fontweight='bold', color=COLOR_TITLE_WARNING)
+                     fontsize=15, fontweight='bold', color=COLOR_TITLE_DEMO)
         
         plt.tight_layout()
         plt.savefig(filename, dpi=150, bbox_inches='tight', facecolor='white')
