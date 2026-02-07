@@ -55,6 +55,7 @@
 人工智慧在科學研究中的應用及系統維護筆記。
 
 - **AI 新聞與分析**
+  - [每日 AI 新聞深入解說 (2026-02-07)](ai_news/2026-02-07.md)
   - [OpenClaw 最新版本報告 (2026-02-07)](openclaw_news_report_2026-02-07.md) 🆕
   - [OpenClaw 最新版本報告 (2026-02-06)](openclaw_news_report_2026-02-06.md)
   - [OpenClaw 最新版本報告 (2026-02-05)](openclaw_news_report_2026-02-05.md)
