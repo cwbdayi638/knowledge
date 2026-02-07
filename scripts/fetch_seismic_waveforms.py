@@ -151,7 +151,7 @@ def fetch_waveforms(client):
 
 def plot_waveforms(st, filename, title_suffix=""):
     """
-    Plot waveforms and save to PNG file
+    Plot waveforms and save to PNG file with enhanced styling
     """
     print(f"📊 Plotting waveforms to {filename}...")
     
@@ -162,36 +162,61 @@ def plot_waveforms(st, filename, title_suffix=""):
     try:
         # Create figure with subplots for each trace
         num_traces = len(st)
-        fig, axes = plt.subplots(num_traces, 1, figsize=(12, 3*num_traces))
+        fig, axes = plt.subplots(num_traces, 1, figsize=(14, 3.5*num_traces))
         
         # Handle single trace case
         if num_traces == 1:
             axes = [axes]
+        
+        # Define colors for different channels (Z=blue, N=red, E=green)
+        color_map = {
+            'Z': '#2E86AB',  # Blue for vertical
+            'N': '#A23B72',  # Red/Purple for north
+            'E': '#06A77D',  # Green for east
+        }
         
         # Plot each trace
         for i, tr in enumerate(st):
             times = tr.times()
             data = tr.data
             
-            axes[i].plot(times, data, 'k-', linewidth=0.5)
-            axes[i].set_ylabel(f'{tr.id}\n({tr.stats.channel})', fontsize=10)
-            axes[i].grid(True, alpha=0.3)
+            # Determine color based on channel name
+            channel = tr.stats.channel
+            color = 'k'  # default black
+            for key in color_map:
+                if key in channel:
+                    color = color_map[key]
+                    break
+            
+            axes[i].plot(times, data, color=color, linewidth=0.7, alpha=0.9)
+            axes[i].set_ylabel(f'{tr.id}\n({tr.stats.channel})', 
+                              fontsize=11, fontweight='bold')
+            axes[i].grid(True, alpha=0.25, linestyle='--', linewidth=0.5)
             axes[i].set_xlim(0, max(times))
+            
+            # Add subtle background
+            axes[i].set_facecolor('#FAFAFA')
+            
+            # Style spines
+            for spine in axes[i].spines.values():
+                spine.set_linewidth(1.5)
+                spine.set_color('#333333')
             
             # Only show x-label on bottom plot
             if i == num_traces - 1:
-                axes[i].set_xlabel('Time (seconds)', fontsize=10)
+                axes[i].set_xlabel('Time (seconds)', fontsize=11, fontweight='bold')
         
         # Add title
         station_label = STATION
         if getattr(st[0].stats, 'station', None):
             station_label = st[0].stats.station
 
+        title_color = 'red' if '[EXAMPLE DATA]' in title_suffix or '[DEMO DATA]' in title_suffix else '#1a1a1a'
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
-                     fontsize=14, fontweight='bold')
+                     fontsize=15, fontweight='bold', color=title_color)
         
         plt.tight_layout()
-        plt.savefig(filename, dpi=150, bbox_inches='tight')
+        plt.savefig(filename, dpi=150, bbox_inches='tight', facecolor='white')
         plt.close()
         
         print(f"✅ Plot saved to {filename}")
@@ -221,32 +246,43 @@ def generate_demo_plot(filename):
         import numpy as np
         
         # Create demo data
-        fig, axes = plt.subplots(3, 1, figsize=(12, 9))
+        fig, axes = plt.subplots(3, 1, figsize=(14, 10.5))
         
         time = np.linspace(0, 600, 6000)  # 10 minutes
         
-        # Simulated seismic traces
+        # Simulated seismic traces with color coding
         channels = ['BHZ', 'BHN', 'BHE']
-        for i, channel in enumerate(channels):
+        colors = ['#2E86AB', '#A23B72', '#06A77D']  # Blue, Red/Purple, Green
+        
+        for i, (channel, color) in enumerate(zip(channels, colors)):
             # Create synthetic seismic signal
             signal = (np.random.randn(len(time)) * 0.5 + 
                      np.sin(2 * np.pi * 0.01 * time) * 2 +
                      np.sin(2 * np.pi * 0.05 * time) * 1)
             
-            axes[i].plot(time, signal, 'k-', linewidth=0.5)
-            axes[i].set_ylabel(f'{STATION}.{channel}\n({channel})', fontsize=10)
-            axes[i].grid(True, alpha=0.3)
+            axes[i].plot(time, signal, color=color, linewidth=0.7, alpha=0.9)
+            axes[i].set_ylabel(f'{STATION}.{channel}\n({channel})', 
+                              fontsize=11, fontweight='bold')
+            axes[i].grid(True, alpha=0.25, linestyle='--', linewidth=0.5)
             axes[i].set_xlim(0, 600)
             
+            # Add subtle background
+            axes[i].set_facecolor('#FAFAFA')
+            
+            # Style spines
+            for spine in axes[i].spines.values():
+                spine.set_linewidth(1.5)
+                spine.set_color('#333333')
+            
             if i == 2:
-                axes[i].set_xlabel('Time (seconds)', fontsize=10)
+                axes[i].set_xlabel('Time (seconds)', fontsize=11, fontweight='bold')
         
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         fig.suptitle(f'Seismic Waveforms - Station {STATION} [DEMO DATA]\n{current_time}', 
-                     fontsize=14, fontweight='bold', color='red')
+                     fontsize=15, fontweight='bold', color='red')
         
         plt.tight_layout()
-        plt.savefig(filename, dpi=150, bbox_inches='tight')
+        plt.savefig(filename, dpi=150, bbox_inches='tight', facecolor='white')
         plt.close()
         
         print(f"✅ Demo plot saved to {filename}")
