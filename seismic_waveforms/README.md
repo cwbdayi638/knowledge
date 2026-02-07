@@ -2,6 +2,16 @@
 
 This directory contains automatically generated seismic waveform plots from the NACB seismic station.
 
+## 🌊 Real-Time Viewer
+
+**[View Live Waveforms →](https://cwbdayi638.github.io/knowledge/seismic_waveforms/realtime_viewer.html)**
+
+Access the real-time monitoring dashboard to see the latest seismic waveforms with automatic updates every 60 seconds. The viewer provides:
+- Live display of the most recent waveform data
+- Automatic refresh every minute
+- Manual refresh button for immediate updates
+- Detailed station information and data interpretation guide
+
 ## Data Source
 
 - **Network**: IRIS FDSN Web Services

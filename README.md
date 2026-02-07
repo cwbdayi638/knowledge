@@ -8,7 +8,8 @@
 深入探討地震物理機制、觀測技術與災害預警系統。
 
 - **即時觀測資料**
-  - [🌊 地震波形資料 (NACB 測站)](seismic_waveforms/) - 每 30 分鐘更新
+  - [🌊 即時地震波形監測 (NACB 測站)](seismic_waveforms/realtime_viewer.html) - 60秒自動更新 🔴 LIVE
+  - [📂 地震波形資料庫 (NACB 測站)](seismic_waveforms/) - 每 30 分鐘更新
   - [📊 地震資料記錄](earthquake_data/) - 即時地震事件記錄
 - **最新研究報告**
   - [每日地震學研究報告 (2026-02-04)](research_report_2026_02_04.md)
