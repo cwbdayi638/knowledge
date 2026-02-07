@@ -34,8 +34,8 @@ DEMO_DATA_SUFFIX = " [DEMO DATA]"
 COLOR_VERTICAL = '#2E86AB'    # Blue for Z (vertical)
 COLOR_NORTH = '#A23B72'       # Red/Purple for N (north)
 COLOR_EAST = '#06A77D'        # Green for E (east)
-COLOR_TITLE_DEMO = '#FF0000'     # Red for example/demo data titles
-COLOR_TITLE_NORMAL = '#1a1a1a'   # Dark gray for normal titles
+COLOR_TITLE_SPECIAL = '#FF0000'   # Red for example/demo data titles
+COLOR_TITLE_NORMAL = '#1a1a1a'    # Dark gray for normal titles
 
 # Alternative FDSN service providers with priority order
 FDSN_PROVIDERS = [
@@ -217,7 +217,7 @@ def plot_waveforms(st, filename, title_suffix=""):
         if getattr(st[0].stats, 'station', None):
             station_label = st[0].stats.station
 
-        title_color = COLOR_TITLE_DEMO if (EXAMPLE_DATA_SUFFIX in title_suffix or DEMO_DATA_SUFFIX in title_suffix) else COLOR_TITLE_NORMAL
+        title_color = COLOR_TITLE_SPECIAL if (EXAMPLE_DATA_SUFFIX in title_suffix or DEMO_DATA_SUFFIX in title_suffix) else COLOR_TITLE_NORMAL
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
                      fontsize=15, fontweight='bold', color=title_color)
         
@@ -285,7 +285,7 @@ def generate_demo_plot(filename):
         
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         fig.suptitle(f'Seismic Waveforms - Station {STATION}{DEMO_DATA_SUFFIX}\n{current_time}', 
-                     fontsize=15, fontweight='bold', color=COLOR_TITLE_DEMO)
+                     fontsize=15, fontweight='bold', color=COLOR_TITLE_SPECIAL)
         
         plt.tight_layout()
         plt.savefig(filename, dpi=150, bbox_inches='tight', facecolor='white')
