@@ -9,6 +9,7 @@
 
 - **即時觀測資料**
   - [🌊 地震波形資料 (NACB 測站)](seismic_waveforms/) - 每 30 分鐘更新
+  - [📊 地震資料記錄](earthquake_data/) - 即時地震事件記錄
 - **最新研究報告**
   - [每日地震學研究報告 (2026-02-04)](research_report_2026_02_04.md)
   - [每日地震學新聞摘要 (2026-02-04)](seismology_news/2026-02-04.md)
@@ -54,11 +55,10 @@
 人工智慧在科學研究中的應用及系統維護筆記。
 
 - **AI 新聞與分析**
-  - [OpenClaw 最新版本報告 (2026-02-07)](openclaw_news_report_2026-02-07.md)
-  - [每日 AI 新聞深入解說 (2026-02-06)](ai_news/2026-02-06.md)
+  - [OpenClaw 最新版本報告 (2026-02-07)](openclaw_news_report_2026-02-07.md) 🆕
   - [OpenClaw 最新版本報告 (2026-02-06)](openclaw_news_report_2026-02-06.md)
-  - [每日 AI 新聞深入解說 (2026-02-05)](ai_news/2026-02-05.md)
   - [OpenClaw 最新版本報告 (2026-02-05)](openclaw_news_report_2026-02-05.md)
+  - [每日 AI 新聞深入解說 (2026-02-06)](ai_news/2026-02-06.md)
   - [每日 AI 新聞深入解說 (2026-02-05)](ai_news/2026-02-05.md)
   - [每日 AI 新聞深入解說 (2026-02-04)](ai_news/2026-02-04.md)
   - [每日 AI 新聞深入解說 (2026-02-03)](ai_news/2026-02-03.md)
@@ -70,6 +70,11 @@
   - [OpenClaw 新聞收集系統說明](OPENCLAW_NEWS_README.md) 📰
   - [Hugging Face 部署修復筆記](technical_notes/hf_deployment_fixes.md)
   - [使用者指令歷程與 Prompt 優化建議](instruction_log_and_tips.md)
+- **自動化系統**
+  - [自動化系統說明](AUTOMATION_README.md)
+  - [地震資料收集說明](EARTHQUAKE_README.md)
+  - [地震波形資料實作說明](SEISMIC_WAVEFORMS_IMPLEMENTATION.md)
+  - [電子郵件發送功能](HOW_TO_SEND_EMAIL.md)
 
 ### 🚀 部署與託管 (Deployment & Hosting)
 現代化的雲端部署平台與工具介紹。
