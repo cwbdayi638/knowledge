@@ -26,6 +26,10 @@ OUTPUT_DIR = 'seismic_waveforms'
 TIMEOUT = 30  # Connection timeout in seconds
 MAX_RETRIES = 2  # Maximum retry attempts per provider
 
+# Plot styling constants
+EXAMPLE_DATA_SUFFIX = " [EXAMPLE DATA]"
+DEMO_DATA_SUFFIX = " [DEMO DATA]"
+
 # Alternative FDSN service providers with priority order
 FDSN_PROVIDERS = [
     {"service": "IRIS", "timeout": TIMEOUT},
@@ -211,7 +215,7 @@ def plot_waveforms(st, filename, title_suffix=""):
         if getattr(st[0].stats, 'station', None):
             station_label = st[0].stats.station
 
-        title_color = 'red' if '[EXAMPLE DATA]' in title_suffix or '[DEMO DATA]' in title_suffix else '#1a1a1a'
+        title_color = 'red' if (EXAMPLE_DATA_SUFFIX in title_suffix or DEMO_DATA_SUFFIX in title_suffix) else '#1a1a1a'
         fig.suptitle(f'Seismic Waveforms - Station {station_label}{title_suffix}\n{st[0].stats.starttime}', 
                      fontsize=15, fontweight='bold', color=title_color)
         
@@ -237,7 +241,7 @@ def generate_demo_plot(filename):
     try:
         st = read()
         if st is not None and len(st) > 0:
-            return plot_waveforms(st, filename, title_suffix=" [EXAMPLE DATA]")
+            return plot_waveforms(st, filename, title_suffix=EXAMPLE_DATA_SUFFIX)
 
         raise ValueError("ObsPy example data unavailable or returned empty stream")
     except Exception as e:
@@ -278,7 +282,7 @@ def generate_demo_plot(filename):
                 axes[i].set_xlabel('Time (seconds)', fontsize=11, fontweight='bold')
         
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        fig.suptitle(f'Seismic Waveforms - Station {STATION} [DEMO DATA]\n{current_time}', 
+        fig.suptitle(f'Seismic Waveforms - Station {STATION}{DEMO_DATA_SUFFIX}\n{current_time}', 
                      fontsize=15, fontweight='bold', color='red')
         
         plt.tight_layout()
