@@ -341,8 +341,18 @@
             }
         }
 
+        // Track if refresh is in progress
+        let refreshInProgress = false;
+
         // Function to refresh the waveform image
         async function refreshWaveform() {
+            // Prevent concurrent refreshes
+            if (refreshInProgress) {
+                console.log('Refresh already in progress, skipping...');
+                return;
+            }
+            
+            refreshInProgress = true;
             const loadingDiv = document.getElementById('loading');
             const imageElement = document.getElementById('waveform-image');
             const errorDiv = document.getElementById('error-message');
@@ -375,6 +385,8 @@
             } catch (error) {
                 showError('Error loading waveform: ' + error.message);
                 loadingDiv.style.display = 'none';
+            } finally {
+                refreshInProgress = false;
             }
             
             // Reset countdown
@@ -420,11 +432,11 @@
             
             // Update countdown every second
             countdownInterval = setInterval(() => {
-                secondsUntilRefresh--;
                 if (secondsUntilRefresh <= 0) {
                     secondsUntilRefresh = 60;
                 }
                 document.getElementById('refresh-countdown').textContent = secondsUntilRefresh + 's';
+                secondsUntilRefresh--;
             }, 1000);
         }
 
