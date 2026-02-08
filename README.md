@@ -19,6 +19,8 @@
   - [應力與應變：從基礎到張量分析](stress_strain.md)
   - [地震波物理特性：P波、S波與表面波](seismic_waves.md)
   - [絕對重力觀測技術與儀器](gravity_meters.md)
+- **教學資源 (Educational Resources)** 🎓
+  - [**地震學教學提案：反重力思維啟發編程與研究**](seismology_teaching_proposal_antigravity.md) - 創新教學法，結合反重力概念、編程實作與研究方法論
 - **學術論文摘要 (NTU Seismo Lab)**
   - [完整論文清單 (1997-2025)](papersummaries/NTU_Seismo_Lab_Full_PDF_List.md)
   - [📂 瀏覽所有 NTU 地震實驗室論文摘要 (230+ 篇)](https://github.com/cwbdayi638/knowledge/tree/main/papersummaries/ntu_seismo_lab_papers)
