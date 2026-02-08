@@ -75,7 +75,7 @@ print(f"地球表面重力加速度: {g_earth:.2f} m/s²")
 
 **1.2 反重力思維實作：重力異常反演**
 ```python
-def gravity_anomaly_inversion(observed_gravity, reference_gravity):
+def gravity_anomaly_inversion(observed_gravity, reference_gravity, depth=1000):
     """
     「反重力」概念應用：從重力異常反推地下密度變化
     
@@ -85,10 +85,12 @@ def gravity_anomaly_inversion(observed_gravity, reference_gravity):
     Parameters:
     observed_gravity: 觀測重力值陣列
     reference_gravity: 參考重力值
+    depth: 異常體深度 (m)
     
     Returns:
     density_anomaly: 推估的密度異常
     """
+    G = 6.67430e-11  # 萬有引力常數
     gravity_residual = observed_gravity - reference_gravity
     
     # 簡化的布格異常反演 (Bouguer anomaly inversion)
@@ -163,24 +165,34 @@ def seismic_wave_simulation(wave_type='P'):
     # 有限差分法求解波動方程
     # ∂²u/∂t² = c² ∂²u/∂x²
     
+    # 需要三個時間層：過去、現在、未來
+    u_past = np.zeros_like(x)  # t-1 時刻
+    u_now = np.zeros_like(x)   # t 時刻
+    u_future = np.zeros_like(x) # t+1 時刻
+    
     fig, ax = plt.subplots(figsize=(12, 6))
-    line, = ax.plot(x, u)
+    line, = ax.plot(x, u_now)
     ax.set_ylim(-1, 1)
     ax.set_xlabel('Distance (m)')
     ax.set_ylabel('Displacement')
     ax.set_title(f'{title} Propagation')
     
     def animate(frame):
+        nonlocal u_past, u_now, u_future
         t = frame * dt
         # 更新震源
         source_idx = int(length / (2 * dx))
-        u[source_idx] += source_function(t) * dt
+        u_now[source_idx] += source_function(t) * dt
         
         # 波動方程數值解 (中央差分)
-        u[1:-1] = 2*u[1:-1] - u[1:-1] + \
-                  (velocity * dt / dx)**2 * (u[2:] - 2*u[1:-1] + u[:-2])
+        u_future[1:-1] = 2*u_now[1:-1] - u_past[1:-1] + \
+                         (velocity * dt / dx)**2 * (u_now[2:] - 2*u_now[1:-1] + u_now[:-2])
         
-        line.set_ydata(u)
+        # 更新時間層
+        u_past[:] = u_now[:]
+        u_now[:] = u_future[:]
+        
+        line.set_ydata(u_now)
         return line,
     
     anim = FuncAnimation(fig, animate, frames=500, interval=20, blit=True)
@@ -209,6 +221,9 @@ def reverse_time_migration(seismogram, velocity_model):
     
     Returns:
     migrated_image: 偏移成像結果
+    
+    注意：這是簡化的概念示範程式碼
+    實際實現需要學員完成以下函數
     """
     # 概念示範程式碼
     nt, nx = seismogram.shape
@@ -217,12 +232,27 @@ def reverse_time_migration(seismogram, velocity_model):
     reversed_data = seismogram[::-1, :]
     
     # 步驟2: 反向波場延拓
+    # TODO: 學員需實現 backward_propagate() 函數
+    # 使用波動方程進行反向時間積分
     backward_wavefield = backward_propagate(reversed_data, velocity_model)
     
     # 步驟3: 成像條件 (零時刻疊加)
+    # TODO: 學員需實現 apply_imaging_condition() 函數
+    # 將正向與反向波場在零時刻交叉相關
     migrated_image = apply_imaging_condition(backward_wavefield)
     
     return migrated_image
+
+def backward_propagate(data, velocity_model):
+    """學員實作任務：實現反向波場延拓"""
+    # 提示：使用與正向傳播相同的波動方程
+    # 但時間方向相反
+    pass
+
+def apply_imaging_condition(wavefield):
+    """學員實作任務：實現成像條件"""
+    # 提示：在時間=0時刻疊加波場
+    pass
 
 # 教學重點：
 # 反時偏移是地震探勘的核心技術
@@ -347,9 +377,22 @@ def focal_mechanism_inversion(first_motion_polarity, station_locations):
     
     Returns:
     fault_parameters: 斷層參數（走向、傾角、滑動角）
+    
+    注意：這是簡化的概念示範
+    實際實現需要學員完成極性計算函數
     """
     # 這是一個簡化的概念示範
     # 實際應用需要使用演算法如網格搜尋或遺傳演算法
+    
+    def compute_polarity(strike, dip, rake, locations):
+        """
+        學員實作任務：計算理論初動極性
+        
+        提示：使用震源機制解的輻射模式公式
+        需要將測站位置轉換到震源球座標系
+        """
+        # 簡化示範：隨機返回極性（實際需要正確計算）
+        return np.random.choice([1, -1], size=len(locations))
     
     def misfit_function(strike, dip, rake):
         """
@@ -460,21 +503,27 @@ def research_workflow_antigravity_style(raw_data):
     
     反重力流程（循環上升）:
     數據探索 ⇄ 假設生成 ⇄ 驗證迭代 ⇄ 知識提煉
+    
+    注意：這是概念框架示範
+    各個函數需要根據具體研究問題實現
     """
     
     # Step 1: 數據探索（Data Exploration）
     print("=== Step 1: 探索數據特徵 ===")
-    visualize_data(raw_data)
-    basic_stats = compute_statistics(raw_data)
+    # TODO: 學員實現 - 繪製數據圖表、計算基本統計量
+    visualize_data(raw_data)  # 繪製波形、頻譜等
+    basic_stats = compute_statistics(raw_data)  # 計算均值、標準差等
     
     # Step 2: 生成假設（Hypothesis Generation）
     print("=== Step 2: 基於觀察生成假設 ===")
-    observations = identify_patterns(raw_data)
-    hypotheses = generate_hypotheses(observations)
+    # TODO: 學員實現 - 從數據中識別模式
+    observations = identify_patterns(raw_data)  # 找出異常、週期等
+    hypotheses = generate_hypotheses(observations)  # 形成可測試的假設
     
     # Step 3: 假設驗證（Hypothesis Testing）
     print("=== Step 3: 驗證假設 ===")
     for hypothesis in hypotheses:
+        # TODO: 學員實現 - 設計實驗或分析來驗證假設
         result = test_hypothesis(hypothesis, raw_data)
         if not result.is_valid:
             # 反重力思維：失敗是新假設的起點
@@ -482,11 +531,13 @@ def research_workflow_antigravity_style(raw_data):
     
     # Step 4: 知識綜合（Knowledge Synthesis）
     print("=== Step 4: 綜合知識 ===")
+    # TODO: 學員實現 - 整合驗證結果
     validated_results = filter_valid_hypotheses(hypotheses)
     final_insights = synthesize_knowledge(validated_results)
     
     # Step 5: 反思與迭代（Reflection and Iteration）
     print("=== Step 5: 反思與下一步 ===")
+    # TODO: 學員實現 - 從結果中提出新問題
     new_questions = generate_new_questions(final_insights)
     
     return {
@@ -494,6 +545,43 @@ def research_workflow_antigravity_style(raw_data):
         'new_questions': new_questions,
         'raw_analyses': validated_results
     }
+
+# 輔助函數框架（學員需實現）
+def visualize_data(data):
+    """繪製數據視覺化圖表"""
+    pass
+
+def compute_statistics(data):
+    """計算基本統計量"""
+    pass
+
+def identify_patterns(data):
+    """識別數據中的模式"""
+    pass
+
+def generate_hypotheses(observations):
+    """根據觀察生成假設"""
+    pass
+
+def test_hypothesis(hypothesis, data):
+    """測試假設"""
+    pass
+
+def refine_hypothesis(hypothesis, feedback):
+    """根據反饋優化假設"""
+    pass
+
+def filter_valid_hypotheses(hypotheses):
+    """篩選驗證通過的假設"""
+    pass
+
+def synthesize_knowledge(results):
+    """綜合分析結果"""
+    pass
+
+def generate_new_questions(insights):
+    """從洞察中生成新問題"""
+    pass
 
 # 教學核心：
 # 真實研究很少是線性的
@@ -511,11 +599,14 @@ def earthquake_location_project():
     2. 走時計算（Module 2）
     3. 反演演算法（Module 3）
     4. 實際數據處理（Module 4）
+    
+    注意：部分函數需要學員實現
     """
     
     # 1. 準備數據
-    stations = load_station_info()
-    arrival_times = pick_arrival_times(stream)
+    # TODO: 學員實現 - 讀取測站資訊和拾取到時
+    stations = load_station_info()  # 讀取測站經緯度、高程
+    arrival_times = pick_arrival_times(stream)  # 從波形中拾取P波到時
     
     # 2. 建立速度模型
     velocity_model = create_1d_velocity_model(
@@ -540,6 +631,8 @@ def earthquake_location_project():
         
         def misfit(location):
             lat, lon, depth = location
+            # TODO: 學員實現 compute_travel_times()
+            # 計算震源到各測站的理論走時
             calculated_times = compute_travel_times(
                 lat, lon, depth, stations, velocity_model
             )
@@ -560,15 +653,47 @@ def earthquake_location_project():
     print(f"震源深度: {best_location[2]:.2f} km")
     
     # 4. 不確定性分析
+    # TODO: 學員實現 - 使用 Bootstrap 方法估計誤差
     uncertainty = bootstrap_uncertainty(arrival_times, stations, velocity_model)
     
     # 5. 視覺化結果
+    # TODO: 學員實現 - 繪製震央位置圖
     plot_earthquake_location(best_location, stations, uncertainty)
     
     return best_location, uncertainty
 
-# 執行項目
-location, uncertainty = earthquake_location_project()
+# 輔助函數框架（學員需實現）
+def load_station_info():
+    """讀取測站資訊（經緯度、高程）"""
+    # 提示：可從文件讀取或硬編碼測站資訊
+    pass
+
+def pick_arrival_times(stream):
+    """從波形中拾取到時"""
+    # 提示：可使用 STA/LTA 或其他方法自動拾取
+    pass
+
+def compute_travel_times(lat, lon, depth, stations, velocity_model):
+    """計算理論走時"""
+    # 提示：使用射線追蹤或簡化的線性速度模型
+    pass
+
+def bootstrap_uncertainty(arrival_times, stations, velocity_model):
+    """Bootstrap 不確定性分析"""
+    # 提示：重複抽樣並重新定位，計算標準差
+    pass
+
+def plot_earthquake_location(location, stations, uncertainty):
+    """視覺化地震定位結果"""
+    # 提示：使用 matplotlib 或 cartopy 繪製地圖
+    pass
+
+def create_1d_velocity_model(depths, vp, vs):
+    """建立一維速度模型"""
+    return {'depths': depths, 'vp': vp, 'vs': vs}
+
+# 執行項目（示範）
+# location, uncertainty = earthquake_location_project()
 ```
 
 #### 實作練習:
