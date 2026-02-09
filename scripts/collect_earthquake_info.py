@@ -94,7 +94,7 @@ No earthquakes with magnitude 2.5 or greater were detected in the past hour.
             
             magnitude = props.get('mag', 'N/A')
             place = props.get('place', 'Unknown location')
-            time_ms = props.get('time', 0)
+            time_ms = props.get('time') if props.get('time') is not None else 0
             time_str = datetime.fromtimestamp(time_ms / 1000).strftime('%Y-%m-%d %H:%M:%S UTC')
             depth = coords[2] if len(coords) > 2 else 'N/A'
             longitude = coords[0] if len(coords) > 0 else 'N/A'
@@ -102,8 +102,8 @@ No earthquakes with magnitude 2.5 or greater were detected in the past hour.
             
             # Get additional details
             alert_level = props.get('alert', 'None')
-            tsunami = props.get('tsunami', 0)
-            felt_reports = props.get('felt', 0)
+            tsunami = props.get('tsunami') or 0
+            felt_reports = props.get('felt') or 0
             url = props.get('url', '#')
             
             content += f"### {i}. Magnitude {magnitude} - {place}\n\n"
