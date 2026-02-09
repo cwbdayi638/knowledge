@@ -102,8 +102,12 @@ No earthquakes with magnitude 2.5 or greater were detected in the past hour.
             
             # Get additional details
             alert_level = props.get('alert', 'None')
-            tsunami = props.get('tsunami') or 0
-            felt_reports = props.get('felt') or 0
+            tsunami = props.get('tsunami')
+            if tsunami is None:
+                tsunami = 0
+            felt_reports = props.get('felt')
+            if felt_reports is None:
+                felt_reports = 0
             url = props.get('url', '#')
             
             content += f"### {i}. Magnitude {magnitude} - {place}\n\n"
@@ -117,7 +121,7 @@ No earthquakes with magnitude 2.5 or greater were detected in the past hour.
             if tsunami == 1:
                 content += f"- **Tsunami Warning**: ⚠️ YES\n"
             
-            if felt_reports > 0:
+            if felt_reports is not None and felt_reports > 0:
                 content += f"- **Felt Reports**: {felt_reports} people\n"
             
             content += f"- **Details**: [USGS Event Page]({url})\n"
