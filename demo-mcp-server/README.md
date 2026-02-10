@@ -9,6 +9,7 @@
 1. **get_project_info** - 獲取項目的基本信息
 2. **calculate** - 執行簡單的數學計算（加、減、乘、除）
 3. **get_weather** - 獲取模擬的天氣信息
+4. **fetch_url** - 從外部服務器獲取數據（HTTP 客戶端工具）🆕
 
 ## 安裝
 
@@ -88,6 +89,47 @@ get_weather({
 })
 // 返回模擬的天氣數據
 ```
+
+### 4. HTTP 客戶端（從外部服務器獲取數據）🆕
+
+```javascript
+// GET 請求示例
+fetch_url({
+  url: "https://api.github.com/repos/modelcontextprotocol/sdk"
+})
+// 返回 GitHub 倉庫信息
+
+// POST 請求示例
+fetch_url({
+  url: "https://httpbin.org/post",
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ key: "value" })
+})
+// 返回 POST 請求的響應
+
+// 查詢公開 API 示例
+fetch_url({
+  url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
+})
+// 返回過去一小時的全球地震數據
+```
+
+**支援的功能**:
+- ✅ HTTP GET 和 POST 請求
+- ✅ 自定義 HTTP 標頭
+- ✅ JSON 和純文本響應
+- ✅ 10 秒請求超時
+- ✅ 響應大小限制（10KB）
+- ✅ 安全 URL 驗證（僅支援 HTTP/HTTPS）
+
+**使用場景**:
+- 🌍 查詢公開 API（天氣、地震、新聞等）
+- 📊 獲取即時數據
+- 🔗 集成第三方服務
+- 🧪 測試 API 端點
 
 ## 文件結構
 
