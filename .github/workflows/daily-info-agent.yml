@@ -1,0 +1,24 @@
+name: Daily Info Agent
+on:
+  schedule:
+    - cron: '0 8 * * *' # 8:00 AM UTC every day
+  workflow_dispatch:
+
+jobs:
+  research_and_mail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run Agent Script
+        env:
+          EMAIL_TOKEN: ${{ secrets.EMAIL_TOKEN }} # Use for SendGrid/API
+        run: python agent_script.py
