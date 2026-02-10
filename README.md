@@ -73,6 +73,7 @@
 - **影音內容分析**
   - [LLM 技術核心與展望 (YouTube Summary)](youtube_summary_HJpOgJ4CvQs.md)
 - **技術文件**
+  - [🔌 MCP Server for GitHub Copilot 完整安裝指南](MCP_SERVER_GITHUB_COPILOT_GUIDE.md) 🆕
   - [GitHub Agent 功能介紹完整指南](github_agent_capabilities.md)
   - [OpenClaw 故障轉移 (Failover) 設定指南](openclaw_failover_setup.md)
   - [OpenClaw 新聞收集系統說明](OPENCLAW_NEWS_README.md) 📰
