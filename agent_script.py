@@ -7,14 +7,25 @@ def run_agent():
     
     # 1. SCRAPE: Example - Collecting headlines from Hacker News
     url = "https://news.ycombinator.com/"
-    res = requests.get(url)
+    try:
+        res = requests.get(url, timeout=10)
+        res.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data from Hacker News: {e}")
+        return
+    
     soup = BeautifulSoup(res.text, "html.parser")
     links = soup.select(".titleline > a")[:5]
+    
+    if not links:
+        print("Warning: No headlines found. The website structure may have changed.")
+        return
     
     # 2. SUMMARIZE: Formatting the findings
     report = "--- DAILY AGENT REPORT ---\n\n"
     for link in links:
-        report += f"- {link.text}\n  Link: {link['href']}\n\n"
+        href = link.get('href', 'No URL')
+        report += f"- {link.text}\n  Link: {href}\n\n"
     
     # 3. OUTPUT: This gets captured by the GitHub Action logs 
     # To actually SEND an email, you would add an API call here (e.g., SendGrid)
