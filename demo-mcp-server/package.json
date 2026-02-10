@@ -1,0 +1,23 @@
+{
+  "name": "demo-mcp-server",
+  "version": "1.0.0",
+  "description": "GitHub Copilot 的演示 MCP 服務器",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "demo-mcp-server": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["mcp", "model-context-protocol", "github-copilot"],
+  "author": "GitHub Copilot Agent",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0"
+  }
+}
