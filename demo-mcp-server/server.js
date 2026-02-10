@@ -6,6 +6,9 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
+// 常量定義
+const MAX_RESPONSE_SIZE = 10000; // 最大響應大小（10KB）
+
 // 創建 MCP 服務器實例
 const server = new Server(
   {
@@ -230,8 +233,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
       
       // 限制響應大小（最多 10KB）
-      if (responseData.length > 10000) {
-        responseData = responseData.substring(0, 10000) + "\n\n... (內容已截斷，僅顯示前 10000 字符)";
+      if (responseData.length > MAX_RESPONSE_SIZE) {
+        responseData = responseData.substring(0, MAX_RESPONSE_SIZE) + "\n\n... (內容已截斷，僅顯示前 10000 字符)";
       }
       
       return {

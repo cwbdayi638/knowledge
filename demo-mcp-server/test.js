@@ -21,11 +21,23 @@ const testCalculations = [
 ];
 
 testCalculations.forEach(test => {
-  const result = eval(`${test.a} ${
-    test.operation === 'add' ? '+' :
-    test.operation === 'subtract' ? '-' :
-    test.operation === 'multiply' ? '*' : '/'
-  } ${test.b}`);
+  let result;
+  switch (test.operation) {
+    case 'add':
+      result = test.a + test.b;
+      break;
+    case 'subtract':
+      result = test.a - test.b;
+      break;
+    case 'multiply':
+      result = test.a * test.b;
+      break;
+    case 'divide':
+      result = test.a / test.b;
+      break;
+    default:
+      result = 0;
+  }
   const status = result === test.expected ? "✅" : "❌";
   console.log(`${status} ${test.a} ${test.operation} ${test.b} = ${result} (期望: ${test.expected})`);
 });
