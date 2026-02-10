@@ -31,8 +31,11 @@ def run_agent():
     # To actually SEND an email, you would add an API call here (e.g., SendGrid)
     print(report)
     
-    with open("report.txt", "w") as f:
-        f.write(report)
+    try:
+        with open("report.txt", "w", encoding="utf-8") as f:
+            f.write(report)
+    except IOError as e:
+        print(f"Error writing report to file: {e}")
 
 if __name__ == "__main__":
     run_agent()
