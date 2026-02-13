@@ -2,6 +2,34 @@
 
 This directory contains automated scripts for data collection and monitoring.
 
+## Continuous Integration
+
+### Test Workflow (`test.yml`)
+
+A GitHub Actions workflow automatically runs all test scripts on every push and pull request to ensure code quality.
+
+**Features:**
+- ✅ Runs automatically on push/PR to main branch
+- 🧪 Executes all unit tests (earthquake, waveforms, email)
+- 🔄 Manual trigger available via workflow_dispatch
+- 📊 Test results visible in GitHub Actions tab
+
+**Testing locally:**
+```bash
+# Install all test dependencies
+pip install requests beautifulsoup4 obspy matplotlib numpy
+
+# Run all tests
+cd scripts
+python3 test_earthquake_collection.py
+python3 test_fetch_seismic_waveforms.py
+python3 test_monsoon_email.py
+```
+
+**Workflow location:** `.github/workflows/test.yml`
+
+---
+
 ## Available Scripts
 
 ### 1. Seismic Waveform Fetching (`fetch_seismic_waveforms.py`)
@@ -161,6 +189,18 @@ python3 scripts/fetch_seismic_waveforms.py
 ```
 
 For detailed testing documentation, see [TESTING.md](TESTING.md).
+
+## Test Coverage
+
+Current test suites:
+
+| Test Script | Tests | Coverage |
+|-------------|-------|----------|
+| `test_earthquake_collection.py` | 3 tests | Earthquake markdown generation, None value handling |
+| `test_fetch_seismic_waveforms.py` | 18 tests | Waveform validation, FDSN connection, plotting, main function |
+| `test_monsoon_email.py` | 1 test | Email preview generation |
+
+All tests run automatically via GitHub Actions on every push and pull request.
 
 ## License
 
