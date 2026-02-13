@@ -109,9 +109,10 @@ def fetch_waveforms(client):
     """
     print(f"📡 Fetching waveforms for station {STATION}...")
     
-    # Get current time and calculate start time
-    endtime = UTCDateTime()
-    starttime = endtime - DATA_DURATION
+    # Get current time and calculate start/end time (50 mins ago to 40 mins ago)
+    current_time = UTCDateTime()
+    endtime = current_time - (40 * 60)  # 40 minutes ago
+    starttime = current_time - (50 * 60)  # 50 minutes ago
     
     print(f"   Time range: {starttime} to {endtime}")
     print(f"   Network: {NETWORK}, Station: {STATION}, Location: {LOCATION}, Channel: {CHANNEL}")
