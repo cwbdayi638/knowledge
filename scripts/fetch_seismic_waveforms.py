@@ -25,6 +25,9 @@ DATA_DURATION = 10 * 60  # 10 minutes in seconds
 OUTPUT_DIR = 'seismic_waveforms'
 TIMEOUT = 30  # Connection timeout in seconds
 MAX_RETRIES = 2  # Maximum retry attempts per provider
+LOOKBACK_START_MINUTES = 50  # Start time offset from current time (minutes ago)
+LOOKBACK_END_MINUTES = 40    # End time offset from current time (minutes ago)
+SECONDS_PER_MINUTE = 60      # Seconds per minute conversion
 
 # Plot styling constants
 EXAMPLE_DATA_SUFFIX = " [EXAMPLE DATA]"
@@ -111,8 +114,8 @@ def fetch_waveforms(client):
     
     # Get current time and calculate start/end time (50 mins ago to 40 mins ago)
     current_time = UTCDateTime()
-    endtime = current_time - (40 * 60)  # 40 minutes ago
-    starttime = current_time - (50 * 60)  # 50 minutes ago
+    endtime = current_time - (LOOKBACK_END_MINUTES * SECONDS_PER_MINUTE)
+    starttime = current_time - (LOOKBACK_START_MINUTES * SECONDS_PER_MINUTE)
     
     print(f"   Time range: {starttime} to {endtime}")
     print(f"   Network: {NETWORK}, Station: {STATION}, Location: {LOCATION}, Channel: {CHANNEL}")
